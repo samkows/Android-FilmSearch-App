@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomViewContainer">
+        <attr name="title_text" format="string" />
+        <attr name="quantity_text" format="string" />
+        <attr name="enable_quantity_imageView" format="boolean" />
+        <attr name="enable_create_collection" format="boolean" />
+        <attr name="recycler_view_top_padding" format="float" />
+    </declare-styleable>
+
+</resources>

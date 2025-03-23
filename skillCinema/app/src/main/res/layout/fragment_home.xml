@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.recyclerview.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:clipToPadding="false"
+    android:paddingBottom="36dp" />
+<!--<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:scrollbars="none">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:clipToPadding="false">-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="55dp"-->
+<!--            android:layout_marginBottom="46dp"-->
+<!--            android:layout_marginStart="26dp"-->
+<!--            android:src="@drawable/skillcinema_logo" />-->
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/recyclerView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:scrollbars="none"-->
+<!--            android:clipToPadding="false"-->
+<!--            android:paddingBottom="36dp"/>-->
+
+<!--&lt;!&ndash;        <com.example.skillcinema.CustomViewContainer&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/premieres_container"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginBottom="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:quantity_text="@string/all"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:title_text="@string/premieres" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <com.example.skillcinema.CustomViewContainer&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/popular_container"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginBottom="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:quantity_text="@string/all"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:title_text="@string/popular" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <com.example.skillcinema.CustomViewContainer&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/first_dynamic_container"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginBottom="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:quantity_text="@string/all" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <com.example.skillcinema.CustomViewContainer&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/top_250_container"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginBottom="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:quantity_text="@string/all"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:title_text="@string/top250" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <com.example.skillcinema.CustomViewContainer&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/second_dynamic_container"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginBottom="16dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:quantity_text="@string/all" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <com.example.skillcinema.CustomViewContainer&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/serials_container"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_marginBottom="36dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:quantity_text="@string/all"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:title_text="@string/serials" />&ndash;&gt;-->
+
+<!--    </LinearLayout>-->
+<!--</androidx.core.widget.NestedScrollView>-->

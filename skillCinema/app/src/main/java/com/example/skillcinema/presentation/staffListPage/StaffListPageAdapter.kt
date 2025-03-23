@@ -1,0 +1,51 @@
+package com.example.skillcinema.presentation.staffListPage
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.skillcinema.databinding.ItemStaffListpageBinding
+import com.example.skillcinema.models.StaffData
+
+class StaffListPageAdapter(
+    private val onClick: (StaffData) -> Unit
+) : RecyclerView.Adapter<StaffListPageViewHolder>() {
+
+    private var data: Array<StaffData> = emptyArray()
+    fun setData(data: Array<StaffData>) {
+        this.data = data
+        notifyDataSetChanged()
+    }
+
+    override fun getItemCount() = data.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StaffListPageViewHolder {
+        return StaffListPageViewHolder(
+            ItemStaffListpageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
+    }
+
+    override fun onBindViewHolder(holder: StaffListPageViewHolder, position: Int) {
+        val item = data.getOrNull(position)
+        item?.let {
+            holder.binding.apply {
+
+                root.setOnClickListener {
+                    onClick(item)
+                }
+
+                nameTextView.text = it.nameRu ?: it.nameEn
+                descriptionTextView.text = it.description ?: it.professionText
+
+                Glide
+                    .with(imageView.context)
+                    .load(it.posterURL)
+                    .into(imageView)
+            }
+        }
+    }
+
+}
+
+class StaffListPageViewHolder(val binding: ItemStaffListpageBinding) :
+    RecyclerView.ViewHolder(binding.root)

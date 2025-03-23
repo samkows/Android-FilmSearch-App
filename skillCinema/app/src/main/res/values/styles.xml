@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="roundedImageView">
+        <!--        <item name="cornerFamilyTopRight">rounded</item>-->
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="ImageViewStyle">
+        <item name="android:background">@color/image_background_color</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="shapeAppearanceOverlay">@style/roundedImageView</item>
+    </style>
+
+    <style name="CollapsingToolbarTextAppearance">
+        <item name="android:textColor">@color/image_background_color</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/graphik_400</item>
+    </style>
+
+    <style name="CollapsingToolbarTextAppearance.Title">
+        <item name="fontFamily">@font/graphik_500</item>
+    </style>
+
+    <style name="TitleTextAppearance">
+        <item name="android:textColor">@color/title_text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/graphik_600</item>
+    </style>
+
+    <style name="TitleTextAppearance.500">
+        <item name="android:fontFamily">@font/graphik_500</item>
+    </style>
+
+    <style name="TitleTextAppearance.700">
+        <item name="lineHeight">22dp</item>
+        <item name="android:fontFamily">@font/graphik_700</item>
+    </style>
+
+    <style name="TitleTextAppearance.400">
+        <item name="lineHeight">22dp</item>
+        <item name="android:fontFamily">@font/graphik_400</item>
+    </style>
+
+    <style name="TitleTextAppearance.Big">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TitleTextAppearance.Big.700">
+        <item name="android:fontFamily">@font/graphik_700</item>
+    </style>
+
+    <style name="TitleTextAppearance.Small">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TitleTextAppearance.Small.400">
+        <item name="android:fontFamily">@font/graphik_400</item>
+    </style>
+
+    <style name="TitleTextAppearance.Small.500">
+        <item name="android:fontFamily">@font/graphik_500</item>
+    </style>
+
+    <style name="TitleTextAppearance.Small12">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TitleTextAppearance.Small12.400">
+        <item name="android:fontFamily">@font/graphik_400</item>
+    </style>
+
+
+    <style name="OnboardingTextAppearance" parent="TitleTextAppearance">
+        <item name="android:textSize">32sp</item>
+        <item name="android:fontFamily">@font/graphik_500</item>
+    </style>
+
+
+    <style name="SubTitleTextAppearance">
+        <item name="android:textColor">@color/subtitle_text_color</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/graphik_400</item>
+    </style>
+
+    <style name="SubTitleTextAppearance.Large">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="SubTitleTextAppearance.Big">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SubTitleTextAppearance.Big.500">
+        <item name="android:textColor">@color/image_background_color</item>
+        <item name="android:fontFamily">@font/graphik_500</item>
+    </style>
+
+    <style name="SubTitleTextAppearance.Small">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="QuantityTextAppearance">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/graphik_500</item>
+    </style>
+
+    <style name="TabTextAppearance" parent="TitleTextAppearance.Big">
+        <item name="android:fontFamily">@font/graphik_500</item>
+    </style>
+
+    <style name="TabsStyle" parent="Widget.Material3.TabLayout.Secondary">
+        <item name="tabMode">scrollable</item>
+        <item name="tabBackground">@drawable/tab_selector</item>
+        <item name="tabIndicator">@null</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextColor">@color/title_text_color</item>
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+        <item name="tabSelectedTextAppearance">@style/TabTextAppearance</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="tabPaddingStart">24dp</item>
+        <item name="tabPaddingEnd">32dp</item>
+    </style>
+    <!--    <item name="tabPaddingTop">8dp</item>-->
+    <!--    <item name="tabPaddingBottom">8dp</item>-->
+
+    <style name="ProgressIndicatorStyle">
+        <item name="android:indeterminate">true</item>
+        <item name="indicatorColor">@color/blue</item>
+        <item name="trackThickness">3dp</item>
+    </style>
+
+    <style name="Widget.Theme.SkillCinema.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+    <style name="ToggleButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="backgroundTint">@color/toggle_button_selector</item>
+        <item name="android:textColor">@color/toggle_button_text_color</item>
+        <item name="strokeColor">@color/title_text_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/graphik_500</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+</resources>
