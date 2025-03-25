@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.skillcinema.databinding.ItemStaffListpageBinding
 import com.example.skillcinema.models.StaffData
 
+//todo DONE
 class StaffListPageAdapter(
     private val onClick: (StaffData) -> Unit
 ) : RecyclerView.Adapter<StaffListPageViewHolder>() {
@@ -29,22 +30,20 @@ class StaffListPageAdapter(
         val item = data.getOrNull(position)
         item?.let {
             holder.binding.apply {
-
-                root.setOnClickListener {
-                    onClick(item)
-                }
-
-                nameTextView.text = it.nameRu ?: it.nameEn
-                descriptionTextView.text = it.description ?: it.professionText
-
                 Glide
                     .with(imageView.context)
                     .load(it.posterURL)
                     .into(imageView)
+
+                nameTextView.text = it.nameRu
+                descriptionTextView.text = it.description
+
+                root.setOnClickListener {
+                    onClick(item)
+                }
             }
         }
     }
-
 }
 
 class StaffListPageViewHolder(val binding: ItemStaffListpageBinding) :

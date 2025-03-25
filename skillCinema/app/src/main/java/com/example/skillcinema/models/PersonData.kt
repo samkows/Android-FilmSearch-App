@@ -10,6 +10,7 @@ data class PersonData (
     val personID: Long,
     val nameRu: String,
     val nameEn: String,
+    val sex: String,
     @SerializedName("posterUrl")
     val posterURL: String,
     val profession: String,

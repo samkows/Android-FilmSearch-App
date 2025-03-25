@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,9 +25,12 @@ import com.example.skillcinema.models.ShortFilmData
 import com.example.skillcinema.presentation.OffsetItemDecoration
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+//todo DONE
 class FilmographyFragment : Fragment() {
 
     private val viewModel: FilmographyViewModel by viewModels {
@@ -36,25 +41,42 @@ class FilmographyFragment : Fragment() {
             }
         }
     }
+
     private var _binding: FragmentFilmographyBinding? = null
     private val binding get() = _binding!!
 
-    private val filmsAdapter = FilmographyFilmAdapter { filmDataDto -> onItemClick(filmDataDto) }
+    private val filmsAdapter = FilmographyFilmAdapter(::onItemClick)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFilmographyBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        val toolbar = binding.filmographyToolbar
-        toolbar.setupWithNavController(findNavController())
-        (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
-        toolbar.navigationIcon = resources.getDrawable(R.drawable.caret_left)
-        toolbar.title = getString(R.string.filmography)
-        toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupToolbar()
+        setupRecyclerView()
+        arguments?.let {
+            viewModel.loadData(it.getLong("id"))
+        }
+        handleLoadingState()
+    }
 
+    private fun setupToolbar() {
+        binding.filmographyToolbar.apply {
+            setupWithNavController(findNavController())
+            (activity as? AppCompatActivity)?.setSupportActionBar(this)
+            title = getString(R.string.filmography)
+            navigationIcon =
+                ResourcesCompat.getDrawable(resources, R.drawable.caret_left, null)
+            setNavigationOnClickListener { findNavController().navigateUp() }
+        }
+    }
+
+    private fun setupRecyclerView() {
         binding.filmographyRecycler.apply {
             addItemDecoration(
                 OffsetItemDecoration(
@@ -65,28 +87,9 @@ class FilmographyFragment : Fragment() {
             )
             adapter = filmsAdapter
         }
-
-//        val tab = binding.filmographyTabLayout.newTab()
-//        tab.text = "from fragment"
-//        val badge = tab.orCreateBadge
-//        badge.number = 33
-//        badge.horizontalOffset = -20
-//        badge.verticalOffset = 35
-//        binding.filmographyTabLayout.addTab(tab)
-
-        return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        arguments?.let {
-            viewModel.loadData(it.getLong("id"))
-//            val data = it.getParcelable<PersonData>("data")
-//            if (data != null) {
-//                //episodesAdapter.setData(data.episodes)
-//                binding.nameTextView.text = data.nameRu
-//            }
-        }
+    private fun handleLoadingState() {
         viewModel.isLoading.onEach {
             when (it) {
                 is FilmographyLoadState.Loading -> {
@@ -98,7 +101,13 @@ class FilmographyFragment : Fragment() {
                     (activity as MainActivity).hideProgressIndicator()
                     (activity as MainActivity).showErrorBottomSheetFragment()
 
-                    Toast.makeText(context, "${it.message}", Toast.LENGTH_LONG).show()
+                    it.throwable?.let { e ->
+                        Firebase.crashlytics.log("${this.javaClass.simpleName} : ${e.message}")
+                        Firebase.crashlytics.recordException(e)
+
+                        //todo delete toast
+                        Toast.makeText(context, "${e.message}", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 is FilmographyLoadState.Success -> {
@@ -114,8 +123,12 @@ class FilmographyFragment : Fragment() {
 
     private fun setDataToTabsAndAdapter(filmography: ArrayList<ProfessionKeys>) {
         filmography.forEach {
-            val tab = binding.filmographyTabLayout.newTab()
-            tab.text = it.name
+            val tab = binding.filmographyTabLayout.newTab().apply {
+                setCustomView(R.layout.custom_tab)
+                customView?.findViewById<TextView>(R.id.tabText)?.text =
+                    it.getLocalizedName(requireContext())
+                customView?.findViewById<TextView>(R.id.tabNumber)?.text = it.films.size.toString()
+            }
             binding.filmographyTabLayout.addTab(tab)
         }
         filmsAdapter.setData(filmography[binding.filmographyTabLayout.selectedTabPosition].films)
@@ -126,12 +139,8 @@ class FilmographyFragment : Fragment() {
                     filmsAdapter.setData(filmography[tab.position].films)
                 }
             }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
 
@@ -144,9 +153,7 @@ class FilmographyFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.filmographyTabLayout.clearOnTabSelectedListeners()
         _binding = null
-        ProfessionKeys.entries.forEach {
-            it.films.removeAll(it.films)
-        }
     }
 }

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,10 +28,13 @@ import com.example.skillcinema.models.GalleryTypes
 import com.example.skillcinema.presentation.galleryViewPager.GalleryViewPagerFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+//todo DONE
 class GalleryFragment : Fragment() {
 
     private val viewModel: GalleryViewModel by viewModels {
@@ -40,6 +45,7 @@ class GalleryFragment : Fragment() {
             }
         }
     }
+
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding!!
 
@@ -49,28 +55,44 @@ class GalleryFragment : Fragment() {
     private val pagedListAdapter =
         GalleryPagedListAdapter { galleryItem -> onItemClick(galleryItem, data) }
 
-    lateinit var gridLayoutManager: GridLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        val toolbar = binding.galleryToolbar
-        toolbar.setupWithNavController(findNavController())
-        (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
-        toolbar.title = getString(R.string.gallery)
-        toolbar.navigationIcon = resources.getDrawable(R.drawable.caret_left)
-        toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // val
-        gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+        setupToolbar()
+        setupRecyclerView()
+        arguments?.let {
+            filmId = it.getLong("id")
+            viewModel.loadData(filmId)
+        }
+        handleLoadingState()
+    }
+
+    private fun setupToolbar() {
+        binding.galleryToolbar.apply {
+            setupWithNavController(findNavController())
+            (activity as? AppCompatActivity)?.setSupportActionBar(this)
+            title = getString(R.string.gallery)
+            navigationIcon =
+                ResourcesCompat.getDrawable(resources, R.drawable.caret_left, null)
+            setNavigationOnClickListener { findNavController().navigateUp() }
+        }
+    }
+
+    private fun setupRecyclerView() {
+        val gridLayoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         gridLayoutManager.spanSizeLookup = object : SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (pagedListAdapter.getItemViewType(position)) {
-                    pagedListAdapter.ITEM_TYPE2 -> gridLayoutManager.spanCount
+                    pagedListAdapter.ITEM_BIG_TYPE -> gridLayoutManager.spanCount
                     else -> 1
                 }
             }
@@ -81,19 +103,12 @@ class GalleryFragment : Fragment() {
                     resources.getDimensionPixelSize(R.dimen.offsets_16dp),
                 )
             )
-
             layoutManager = gridLayoutManager
             adapter = pagedListAdapter
         }
-        return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        arguments?.let {
-            filmId = it.getLong("id")
-            viewModel.loadData(filmId)
-        }
+    private fun handleLoadingState() {
         viewModel.isLoading.onEach {
             when (it) {
                 is GalleryLoadState.Loading -> {
@@ -105,7 +120,13 @@ class GalleryFragment : Fragment() {
                     (activity as MainActivity).hideProgressIndicator()
                     (activity as MainActivity).showErrorBottomSheetFragment()
 
-                    Toast.makeText(context, "${it.message}", Toast.LENGTH_LONG).show()
+                    it.throwable?.let { e ->
+                        Firebase.crashlytics.log("${this.javaClass.simpleName} : ${e.message}")
+                        Firebase.crashlytics.recordException(e)
+
+                        //todo delete toast
+                        Toast.makeText(context, "${e.message}", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 is GalleryLoadState.Success -> {
@@ -114,7 +135,6 @@ class GalleryFragment : Fragment() {
 
                     data = it.galleryDataByTypes
                     setDataToTabsAndAdapter(data)
-
                 }
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
@@ -122,8 +142,13 @@ class GalleryFragment : Fragment() {
 
     private fun setDataToTabsAndAdapter(data: ArrayList<Pair<GalleryTypes, Flow<PagingData<GalleryItem>>>>) {
         data.forEach {
-            val tab = binding.galleryTabLayout.newTab()
-            tab.text = it.first.name
+            val tab = binding.galleryTabLayout.newTab().apply {
+                setCustomView(R.layout.custom_tab)
+                customView?.findViewById<TextView>(R.id.tabText)?.text =
+                    it.first.getLocalizedName(requireContext())
+                customView?.findViewById<TextView>(R.id.tabNumber)?.text =
+                    it.first.quantity.toString()
+            }
             binding.galleryTabLayout.addTab(tab)
         }
 
@@ -142,14 +167,10 @@ class GalleryFragment : Fragment() {
                 }
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
-
 
     private fun onItemClick(
         itemPosition: Int,
@@ -169,6 +190,7 @@ class GalleryFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.galleryTabLayout.clearOnTabSelectedListeners()
         _binding = null
     }
 }

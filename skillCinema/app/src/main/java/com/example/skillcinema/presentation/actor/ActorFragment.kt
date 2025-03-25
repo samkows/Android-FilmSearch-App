@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.skillcinema.App
 import com.example.skillcinema.MainActivity
@@ -25,9 +24,12 @@ import com.example.skillcinema.models.ShortFilmData
 import com.example.skillcinema.presentation.FilmAdapter
 import com.example.skillcinema.presentation.OffsetItemDecoration
 import com.example.skillcinema.presentation.galleryViewPager.GalleryViewPagerFragment
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+//todo DONE
 class ActorFragment : Fragment() {
 
     private val viewModel: ActorViewModel by viewModels {
@@ -38,39 +40,42 @@ class ActorFragment : Fragment() {
             }
         }
     }
+
     private var _binding: FragmentActorBinding? = null
     private val binding get() = _binding!!
 
-    private val theBestFilmsAdapter = FilmAdapter(
-        { filmDataDto -> onTheBestFilmClick(filmDataDto) },
-        {}
-    )
+    private val theBestFilmsAdapter = FilmAdapter(::onTheBestFilmClick) {}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentActorBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val toolbar = binding.actorToolbar
-        toolbar.setupWithNavController(findNavController())
-        (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
-        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowTitleEnabled(false)
-        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.caret_left, null)
-        toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupToolbar()
         arguments?.let {
             viewModel.loadData(it.getLong("id"))
-            //todo delete toast
-            Toast.makeText(context,"args", Toast.LENGTH_SHORT).show()
         }
+        handleLoadingState()
+    }
 
+    private fun setupToolbar() {
+        binding.actorToolbar.apply {
+            setupWithNavController(findNavController())
+            (activity as? AppCompatActivity)?.setSupportActionBar(this)
+            (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowTitleEnabled(false)
+            navigationIcon =
+                ResourcesCompat.getDrawable(resources, R.drawable.caret_left, null)
+            setNavigationOnClickListener { findNavController().navigateUp() }
+        }
+    }
+
+    private fun handleLoadingState() {
         viewModel.isLoading.onEach {
             when (it) {
                 is ActorLoadState.Loading -> {
@@ -82,7 +87,13 @@ class ActorFragment : Fragment() {
                     (activity as MainActivity).hideProgressIndicator()
                     (activity as MainActivity).showErrorBottomSheetFragment()
 
-                    Toast.makeText(context, "${it.message}", Toast.LENGTH_LONG).show()
+                    it.throwable?.let { e ->
+                        Firebase.crashlytics.log("${this.javaClass.simpleName} : ${e.message}")
+                        Firebase.crashlytics.recordException(e)
+
+                        //todo delete toast
+                        Toast.makeText(context, "${e.message}", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 is ActorLoadState.Success -> {
@@ -118,6 +129,17 @@ class ActorFragment : Fragment() {
             actorName.text = data.personData.nameRu
             actorSubtitle.text = data.personData.profession
 
+            bestContainer.recyclerView.apply {
+                addItemDecoration(
+                    OffsetItemDecoration(
+                        spacingInPxRight = resources.getDimensionPixelSize(
+                            R.dimen.offsets_8dp
+                        )
+                    )
+                )
+                adapter = theBestFilmsAdapter.apply { setData(data.theBestFilms) }
+            }
+
             filmographyContainer.apply {
                 enableQuantityOfFilmsOrSeries()
                 setQuantityOfFilmsOrSeries(
@@ -135,24 +157,7 @@ class ActorFragment : Fragment() {
                     )
                 }
             }
-
-            bestContainer.recyclerView.apply {
-                layoutManager = LinearLayoutManager(
-                    requireContext(),
-                    LinearLayoutManager.HORIZONTAL, false
-                )
-                addItemDecoration(
-                    OffsetItemDecoration(
-                        spacingInPxRight = resources.getDimensionPixelSize(
-                            R.dimen.offsets_8dp
-                        )
-                    )
-                )
-                adapter = theBestFilmsAdapter
-            }
         }
-
-        theBestFilmsAdapter.setData(data.theBestFilms)
     }
 
     private fun onTheBestFilmClick(filmDataDto: ShortFilmData) {

@@ -16,8 +16,11 @@ import com.example.skillcinema.presentation.onboarding.OnboardingFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import androidx.core.content.edit
 
+//todo DONE
 class StartActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,7 +34,7 @@ class StartActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            //todo is it ok?
+            //show loader
             delay(1000)
 
             if (!isOnBoardingFinished()) {
@@ -51,8 +54,6 @@ class StartActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                // if you want see onboarding putBoolean("Finished", false)
-                // onBoardingFinished()
                 startActivity(Intent(this@StartActivity, MainActivity::class.java))
             }
         }
@@ -65,9 +66,9 @@ class StartActivity : AppCompatActivity() {
 
     private fun onBoardingFinished() {
         val sharedPref = getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
-        val editor = sharedPref?.edit()
-        editor?.putBoolean("Finished", true)
-        editor?.apply()
+        sharedPref?.edit() {
+            this.putBoolean("Finished", true)
+        }
         startActivity(Intent(this, MainActivity::class.java))
     }
 }

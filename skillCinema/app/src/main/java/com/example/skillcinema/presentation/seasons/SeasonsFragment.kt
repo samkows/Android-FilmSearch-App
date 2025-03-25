@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.skillcinema.App
@@ -23,10 +22,14 @@ import com.example.skillcinema.R
 import com.example.skillcinema.databinding.FragmentSeasonsBinding
 import com.example.skillcinema.models.SeasonsData
 import com.google.android.material.chip.Chip
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+//todo DONE
 class SeasonsFragment : Fragment() {
+
     companion object {
         const val SERIAL_TITLE = "title"
         const val SERIAL_ID = "id"
@@ -40,6 +43,7 @@ class SeasonsFragment : Fragment() {
             }
         }
     }
+
     private var _binding: FragmentSeasonsBinding? = null
     private val binding get() = _binding!!
 
@@ -47,7 +51,6 @@ class SeasonsFragment : Fragment() {
     private val viewPager: ViewPager2 by lazy { binding.viewPager }
 
     private val chipsIds: MutableList<Int> = emptyList<Int>().toMutableList()
-
     private var checkedChip = 0
 
     override fun onCreateView(
@@ -55,24 +58,32 @@ class SeasonsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSeasonsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val toolbar = binding.seasonsToolbar
-        toolbar.setupWithNavController(findNavController())
-        (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
-        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.caret_left, null)
-        toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         arguments?.let {
             viewModel.loadData(it.getLong(SERIAL_ID))
-            binding.seasonsToolbar.title = it.getString(SERIAL_TITLE)
         }
+        setupToolbar()
+        handleLoadingState()
+        setupViewPagerWithChips()
+    }
 
+    private fun setupToolbar() {
+        binding.seasonsToolbar.apply {
+            setupWithNavController(findNavController())
+            (activity as? AppCompatActivity)?.setSupportActionBar(this)
+            navigationIcon =
+                ResourcesCompat.getDrawable(resources, R.drawable.caret_left, null)
+            title = arguments?.getString(SERIAL_TITLE)
+            setNavigationOnClickListener { findNavController().navigateUp() }
+        }
+    }
+
+    private fun handleLoadingState() {
         viewModel.isLoading.onEach {
             when (it) {
                 is SeasonsLoadState.Loading -> {
@@ -84,7 +95,13 @@ class SeasonsFragment : Fragment() {
                     (activity as MainActivity).hideProgressIndicator()
                     (activity as MainActivity).showErrorBottomSheetFragment()
 
-                    Toast.makeText(context, "${it.message}", Toast.LENGTH_LONG).show()
+                    it.throwable?.let { e ->
+                        Firebase.crashlytics.log("${this.javaClass.simpleName} : ${e.message}")
+                        Firebase.crashlytics.recordException(e)
+
+                        //todo delete toast
+                        Toast.makeText(context, "${e.message}", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 is SeasonsLoadState.Success -> {
@@ -97,7 +114,9 @@ class SeasonsFragment : Fragment() {
                 }
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
 
+    private fun setupViewPagerWithChips() {
         binding.chipGroup.setOnCheckedStateChangeListener { group, _ ->
             if (group.checkedChipId == View.NO_ID) {
                 group.check(checkedChip)
@@ -117,34 +136,17 @@ class SeasonsFragment : Fragment() {
 
     private fun addChips(data: SeasonsData) {
         data.seasons.forEach {
-            val chip = LayoutInflater.from(context).inflate(R.layout.chip, null) as Chip
-            chip.text = it.number.toString()
-            chip.id = View.generateViewId()
-            chipsIds.add(chip.id)
-            binding.chipGroup.addView(chip)
+            (LayoutInflater.from(context).inflate(R.layout.chip, null) as Chip).apply {
+                text = it.number.toString()
+                id = View.generateViewId()
+                chipsIds.add(this.id)
+                binding.chipGroup.addView(this)
+            }
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-}
-
-class SeasonsViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-    private lateinit var data: SeasonsData
-
-    fun setData(data: SeasonsData) {
-        this.data = data
-    }
-
-    override fun getItemCount(): Int = data.seasons.size
-
-    override fun createFragment(position: Int): Fragment {
-        val fragment = EpisodesFragment()
-        fragment.arguments = Bundle().apply {
-            putParcelable(EpisodesFragment.SEASON_DATA, data.seasons[position])
-        }
-        return fragment
     }
 }

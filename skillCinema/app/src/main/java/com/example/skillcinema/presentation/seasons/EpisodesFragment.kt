@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skillcinema.R
 import com.example.skillcinema.databinding.FragmentEpisodesBinding
 import com.example.skillcinema.models.Season
 
+//todo DONE
 class EpisodesFragment : Fragment() {
+
     companion object {
         const val SEASON_DATA = "data"
     }
@@ -25,20 +26,13 @@ class EpisodesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEpisodesBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        with(binding.episodesRecycler) {
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.VERTICAL, false
-            )
-            adapter = episodesAdapter
-        }
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.episodesRecycler.adapter = episodesAdapter
         arguments?.let {
             val data = it.getParcelable<Season>(SEASON_DATA)
             if (data != null) {

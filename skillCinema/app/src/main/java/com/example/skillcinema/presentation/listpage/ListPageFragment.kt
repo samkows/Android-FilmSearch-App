@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.skillcinema.App
 import com.example.skillcinema.MainActivity
@@ -23,9 +22,12 @@ import com.example.skillcinema.R
 import com.example.skillcinema.databinding.FragmentListpageBinding
 import com.example.skillcinema.models.ShortFilmData
 import com.example.skillcinema.presentation.OffsetItemDecoration
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+//todo DONE
 class ListPageFragment : Fragment() {
     companion object {
         const val TYPE = "type"
@@ -45,7 +47,6 @@ class ListPageFragment : Fragment() {
 
         const val SIMILAR = "similar"
 
-        //  const val APP_COLLECTION = "app collection"
         const val FAVORITE = "favorite"
         const val WANT_TO_WATCH = "want to watch"
         const val WATCHED = "watched"
@@ -53,19 +54,19 @@ class ListPageFragment : Fragment() {
         const val USER_COLLECTION = "user collection"
     }
 
-    private val viewModel: ListpageViewModel by viewModels {
+    private val viewModel: ListPageViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 val repository = (activity?.application as App).repository
-                return ListpageViewModel(repository) as T
+                return ListPageViewModel(repository) as T
             }
         }
     }
+
     private var _binding: FragmentListpageBinding? = null
     private val binding get() = _binding!!
 
-    private val pagingFilmAdapter =
-        ListPagePagingAdapter { filmDataDto -> onItemClick(filmDataDto) }
+    private val pagingFilmAdapter = ListPagePagingAdapter(::onItemClick)
 
 
     override fun onCreateView(
@@ -73,14 +74,28 @@ class ListPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListpageBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupToolbar()
+        setupRecyclerView()
+        readArgumentsAndLoadData()
+        handleLoadingState()
+    }
+
+    private fun setupToolbar() {
         val toolbar = binding.toolbar
         toolbar.setupWithNavController(findNavController())
         (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
         toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.caret_left, null)
         toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+    }
 
+    private fun setupRecyclerView() {
         with(binding.listPageRecycler) {
             layoutManager =
                 GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
@@ -92,12 +107,9 @@ class ListPageFragment : Fragment() {
                 )
             )
         }
-
-        return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun readArgumentsAndLoadData() {
         arguments?.let {
             binding.toolbar.title = when (it.getString(TYPE)) {
                 PREMIERES -> resources.getString(R.string.premieres)
@@ -152,27 +164,10 @@ class ListPageFragment : Fragment() {
 
                 else -> viewModel.getData(type = it.getString(TYPE)!!)
             }
-//            if (it.getString(TYPE) == DYNAMIC_1 || it.getString(TYPE) == DYNAMIC_2) {
-//                viewModel.getData(
-//                    type = it.getString(TYPE)!!,
-//                    countryId = it.getLong(COUNTRY_ID),
-//                    genreId = it.getLong(GENRE_ID)
-//                )
-//            } else if (it.getString(TYPE) == SIMILAR) {
-//                viewModel.getData(
-//                    type = it.getString(TYPE)!!,
-//                    filmId = it.getLong(FILM_ID)
-//                )
-//            } else if (it.getString(TYPE) == APP_COLLECTION || it.getString(TYPE) == USER_COLLECTION) {
-//                viewModel.getCollectionData(
-//                    collectionType = it.getString(TYPE)!!,
-//                    collectionId = it.getLong(COLLECTION_ID)
-//                )
-//            } else {
-//                viewModel.getData(type = it.getString(TYPE)!!)
-//            }
         }
+    }
 
+    private fun handleLoadingState() {
         viewModel.isLoading.onEach {
             when (it) {
                 ListPageLoadState.Loading -> {
@@ -184,15 +179,21 @@ class ListPageFragment : Fragment() {
                     (activity as MainActivity).hideProgressIndicator()
                     (activity as MainActivity).showErrorBottomSheetFragment()
 
-                    Toast.makeText(context, "${it.message}", Toast.LENGTH_LONG).show()
+                    it.throwable?.let { e ->
+                        Firebase.crashlytics.log("${this.javaClass.simpleName} : ${e.message}")
+                        Firebase.crashlytics.recordException(e)
+
+                        //todo delete toast
+                        Toast.makeText(context, "${e.message}", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 is ListPageLoadState.Success -> {
                     (activity as MainActivity).hideProgressIndicator()
                     binding.root.visibility = View.VISIBLE
 
-                    it.data.onEach {
-                        pagingFilmAdapter.submitData(it as PagingData<ShortFilmData>)
+                    it.data.onEach { pagingData ->
+                        pagingFilmAdapter.submitData(pagingData)
                     }.launchIn(viewLifecycleOwner.lifecycleScope)
                 }
             }

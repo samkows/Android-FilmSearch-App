@@ -1,6 +1,5 @@
 package com.example.skillcinema.presentation.gallery
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -16,11 +15,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+//todo DONE
 class GalleryViewModel(
     repository: Repository
 ) : ViewModel() {
-    private val FIRST_PAGE = 1
+    private val firstPage = 1
     private val useCase = GalleryUseCase(repository)
+
     private val _isLoading = MutableStateFlow<GalleryLoadState>(GalleryLoadState.Loading)
     val isLoading = _isLoading.asStateFlow()
 
@@ -39,7 +40,8 @@ class GalleryViewModel(
                     ArrayList()
 
                 GalleryTypes.entries.forEach {
-                    val galleryData = useCase.getGalleryDataByType(id, it.name, FIRST_PAGE)
+                    val galleryData = useCase.getGalleryDataByType(id, it.name, firstPage)
+                    it.quantity = galleryData.total
                     if (galleryData.items.isNotEmpty()) {
                         galleryDataByTypes.add(it to getPagingFlow(id, it))
                     }
@@ -49,8 +51,7 @@ class GalleryViewModel(
                     GalleryLoadState.Success(galleryDataByTypes)
 
             } catch (e: Exception) {
-                _isLoading.value = GalleryLoadState.Error("error ${e.message}")
-                e.message?.let { Log.e("actorViewModel", it) }
+                _isLoading.value = GalleryLoadState.Error(e)
             }
         }
     }

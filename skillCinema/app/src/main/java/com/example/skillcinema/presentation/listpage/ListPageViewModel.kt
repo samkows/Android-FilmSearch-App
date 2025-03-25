@@ -15,7 +15,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class ListpageViewModel(
+//todo Done
+class ListPageViewModel(
     repository: Repository
 ) : ViewModel() {
     private val useCase = HomeAndListPageUseCase(repository)
@@ -50,10 +51,9 @@ class ListpageViewModel(
             kotlin.runCatching {
                 getPagingFlow(type, countryId, genreId, filmId)
             }.onSuccess {
-                //todo
                 _isLoading.value = ListPageLoadState.Success(it)
             }.onFailure {
-                _isLoading.value = ListPageLoadState.Error(it.message)
+                _isLoading.value = ListPageLoadState.Error(it)
             }
         }
     }
@@ -66,7 +66,7 @@ class ListpageViewModel(
             }.onSuccess {
                 _isLoading.value = ListPageLoadState.Success(it)
             }.onFailure {
-                _isLoading.value = ListPageLoadState.Error(it.message)
+                _isLoading.value = ListPageLoadState.Error(it)
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.skillcinema.presentation.filmography
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -8,6 +9,7 @@ import com.example.skillcinema.databinding.ItemFilmographyBinding
 import com.example.skillcinema.models.FullFilmDataDto
 import com.example.skillcinema.models.ShortFilmData
 
+//todo DONE
 class FilmographyFilmAdapter(
     private val onClick: (ShortFilmData) -> Unit
 ) : RecyclerView.Adapter<FilmographyFilmViewHolder>() {
@@ -24,29 +26,29 @@ class FilmographyFilmAdapter(
         )
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
+    override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: FilmographyFilmViewHolder, position: Int) {
         val item = data.getOrNull(position)
         item?.let {
             with(holder.binding) {
-                filmTitleTextView.text = it.nameRu ?: it.nameOriginal
+                Glide
+                    .with(holder.binding.root)
+                    .load(it.posterURLPreview)
+                    .into(holder.binding.imageViewFilmographyItem)
 
-                if (it.genres.isNotEmpty()) {
-                    filmGenreTextView.text = it.genres.first().genre ?: ""
+                filmTitleTextView.text = it.nameRu ?: it.nameOriginal ?: it.nameEn ?: ""
+
+                filmGenreTextView.text = item.genres.firstOrNull()?.genre ?: ""
+
+                item.ratingKinopoisk?.let { rating ->
+                    filmRatingTextView.visibility = View.VISIBLE
+                    filmRatingTextView.text = rating.toString()
+                } ?: run {
+                    filmRatingTextView.visibility = View.GONE
                 }
-                filmRatingTextView.text = it.ratingKinopoisk.toString() ?: "0.0"
-            }
-            Glide
-                .with(holder.binding.root)
-                .load(it.posterURLPreview)
-                .into(holder.binding.imageViewFilmographyItem)
-        }
-        holder.binding.root.setOnClickListener {
-            item?.let {
-                onClick(it)
+
+                root.setOnClickListener { onClick(item) }
             }
         }
     }

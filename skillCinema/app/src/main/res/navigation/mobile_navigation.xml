@@ -22,7 +22,7 @@
         android:id="@+id/navigation_search"
         android:name="com.example.skillcinema.presentation.search.SearchFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_navigation_search_to_filmpageFragment"
             app:destination="@id/filmpageFragment" />
@@ -83,7 +83,7 @@
         android:id="@+id/galleryFragment"
         android:name="com.example.skillcinema.presentation.gallery.GalleryFragment"
         android:label="fragment_gallery"
-        tools:layout="@layout/fragment_gallery" >
+        tools:layout="@layout/fragment_gallery">
         <action
             android:id="@+id/action_galleryFragment_to_galleryViewPagerFragment"
             app:destination="@id/galleryViewPagerFragment" />
@@ -123,7 +123,7 @@
     <fragment
         android:id="@+id/staffListPageFragment"
         android:name="com.example.skillcinema.presentation.staffListPage.StaffListPageFragment"
-        android:label="StaffListPageFragment" >
+        android:label="StaffListPageFragment">
         <action
             android:id="@+id/action_staffListPageFragment_to_actorFragment"
             app:destination="@id/actorFragment" />
@@ -139,7 +139,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.skillcinema.presentation.settings.SettingsFragment"
-        android:label="SettingsFragment" >
+        android:label="SettingsFragment">
         <action
             android:id="@+id/action_settingsFragment_to_yearChangerFragment"
             app:destination="@id/yearChangerFragment" />

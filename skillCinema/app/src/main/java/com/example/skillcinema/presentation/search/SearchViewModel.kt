@@ -47,7 +47,7 @@ class SearchViewModel(
                         _pagingDataFlow.value = flow
                         _isLoading.value = SearchLoadState.Success
                     }.onFailure { error ->
-                        _isLoading.value = SearchLoadState.Error(error.message ?: "Unknown error")
+                        _isLoading.value = SearchLoadState.Error(error)
                     }
                 } else {
                     _pagingDataFlow.value = flow { emit(PagingData.empty()) }

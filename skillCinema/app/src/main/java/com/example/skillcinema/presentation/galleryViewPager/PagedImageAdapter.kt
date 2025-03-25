@@ -11,6 +11,9 @@ import com.bumptech.glide.Glide
 import com.example.skillcinema.databinding.ItemGalleryViewPagerBinding
 import com.example.skillcinema.models.GalleryItem
 
+//todo done
+
+// TouchImageView adapter from https://github.com/MikeOrtiz/TouchImageView/tree/master
 class PagedImageAdapter :
     PagingDataAdapter<GalleryItem, PagedImageAdapter.ImageVH>(DiffUtilCallback()) {
 
@@ -22,6 +25,8 @@ class PagedImageAdapter :
     ): ImageVH {
         val binding = ItemGalleryViewPagerBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
+
+
         binding.imageView.setOnTouchListener { view, event ->
             var result = true
             //can scroll horizontally checks if there's still a part of the image
@@ -51,6 +56,7 @@ class PagedImageAdapter :
             }
             result
         }
+
         return ImageVH(binding)
     }
 

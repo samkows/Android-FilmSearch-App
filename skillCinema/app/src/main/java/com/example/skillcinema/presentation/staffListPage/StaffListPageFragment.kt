@@ -17,6 +17,7 @@ import com.example.skillcinema.databinding.FragmentListpageBinding
 import com.example.skillcinema.models.StaffData
 import com.example.skillcinema.presentation.OffsetItemDecoration
 
+//todo DONE
 class StaffListPageFragment : Fragment() {
     companion object {
         const val STAFF_LIST = "staff list"
@@ -26,8 +27,7 @@ class StaffListPageFragment : Fragment() {
     private var _binding: FragmentListpageBinding? = null
     private val binding get() = _binding!!
 
-    private val staffListAdapter =
-        StaffListPageAdapter { data -> onStaffItemClick(data) }
+    private val staffListAdapter = StaffListPageAdapter(::onStaffItemClick)
 
 
     override fun onCreateView(
@@ -35,14 +35,32 @@ class StaffListPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListpageBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        val toolbar = binding.toolbar
-        toolbar.setupWithNavController(findNavController())
-        (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
-        toolbar.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.caret_left, null)
-        toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupToolbar()
+        setupRecyclerView()
+        arguments?.let {
+            binding.toolbar.title = it.getString(TITLE)
+            staffListAdapter.setData(
+                (it.getParcelableArray(STAFF_LIST) as Array<StaffData>?)!!
+            )
+        }
+    }
 
+    private fun setupToolbar() {
+        binding.toolbar.apply {
+            setupWithNavController(findNavController())
+            (activity as? AppCompatActivity)?.setSupportActionBar(this)
+            navigationIcon =
+                ResourcesCompat.getDrawable(resources, R.drawable.caret_left, null)
+            setNavigationOnClickListener { findNavController().navigateUp() }
+        }
+    }
+
+    private fun setupRecyclerView() {
         binding.listPageRecycler.apply {
             layoutParams.width = LayoutParams.MATCH_PARENT
             layoutManager =
@@ -54,17 +72,6 @@ class StaffListPageFragment : Fragment() {
                     spacingInPxRight = resources.getDimensionPixelSize(R.dimen.offsets_26dp),
                     spacingInPxBottom = resources.getDimensionPixelSize(R.dimen.offsets_16dp)
                 )
-            )
-        }
-        return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        arguments?.let {
-            binding.toolbar.title = it.getString(TITLE)
-            staffListAdapter.setData(
-                (it.getParcelableArray(STAFF_LIST) as Array<StaffData>?)!!
             )
         }
     }

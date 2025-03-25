@@ -1,7 +1,6 @@
 package com.example.skillcinema
 
 import android.app.Application
-import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -12,6 +11,7 @@ import com.example.skillcinema.data.SkillCinemaApi
 import com.google.firebase.FirebaseApp
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 
+//todo DONE
 class App : Application() {
     private lateinit var appDatabase: AppDatabase
     private lateinit var networkingApi: SkillCinemaApi.NetworkingApi
@@ -28,7 +28,6 @@ class App : Application() {
             AppDatabase::class.java,
             "db"
         )
-            //.addMigrations(MIGRATION_1_2)
             .build()
 
         networkingApi = SkillCinemaApi.RetrofitInstance.networkingApi

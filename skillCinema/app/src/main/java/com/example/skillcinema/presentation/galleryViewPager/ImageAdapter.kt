@@ -9,6 +9,9 @@ import com.bumptech.glide.Glide
 import com.example.skillcinema.databinding.ItemGalleryViewPagerBinding
 import com.example.skillcinema.models.GalleryItem
 
+//todo done
+
+// TouchImageView adapter from https://github.com/MikeOrtiz/TouchImageView/tree/master
 class ImageAdapter(
     private val imageList: List<GalleryItem>
 ) : RecyclerView.Adapter<ImageAdapter.ImageVH>() {
@@ -18,6 +21,7 @@ class ImageAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageVH {
         val binding = ItemGalleryViewPagerBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
+
         binding.imageView.setOnTouchListener { view, event ->
             var result = true
             //can scroll horizontally checks if there's still a part of the image
@@ -47,6 +51,7 @@ class ImageAdapter(
             }
             result
         }
+
         return ImageVH(binding)
     }
 

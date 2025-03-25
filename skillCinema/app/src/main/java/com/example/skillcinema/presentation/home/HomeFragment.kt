@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skillcinema.App
 import com.example.skillcinema.MainActivity
 import com.example.skillcinema.R
@@ -26,6 +25,7 @@ import com.google.firebase.crashlytics.crashlytics
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+//todo DONE
 class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels {
@@ -57,9 +57,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.loadData()
+
         binding.recyclerView.apply {
             adapter = homeAdapter
-            layoutManager = LinearLayoutManager(requireContext())
             setItemViewCacheSize(7)
         }
 
@@ -132,11 +133,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
-
-
-//        viewModel.premieres.observe(viewLifecycleOwner) {
-//            premieresAdapter.setData(it)
-//        }
     }
 
 

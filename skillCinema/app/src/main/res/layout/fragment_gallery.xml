@@ -19,27 +19,9 @@
         android:id="@+id/gallery_tabLayout"
         style="@style/TabsStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_marginBottom="16dp"
-        app:tabContentStart="26dp"
-        >
-
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-
-<!--            android:text="STILL"/>-->
-
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="STILL"/>-->
-
-<!--        <com.google.android.material.tabs.TabItem-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="STILL"/>-->
-    </com.google.android.material.tabs.TabLayout>
+        app:tabContentStart="50dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gallery_recycler"
@@ -52,3 +34,4 @@
         tools:listitem="@layout/item_gallery" />
 
 </LinearLayout>
+<!--todo DONE-->

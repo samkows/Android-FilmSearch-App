@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.skillcinema.databinding.FragmentOnboardingBinding
 
+//todo done
 class OnboardingFragment : Fragment() {
-
-    private var description: String? = null
-    private var imageResource = 0
 
     private var _binding: FragmentOnboardingBinding? = null
     private val binding get() = _binding!!
@@ -26,11 +24,9 @@ class OnboardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            description = it.getString(ARG_DESCRIPTION)
-            imageResource = it.getInt(ARG_IMAGE_RES)
+            binding.onboardingTextView.text = it.getString(ARG_DESCRIPTION)
+            binding.onboardingImageView.setImageResource(it.getInt(ARG_IMAGE_RES))
         }
-        binding.onboardingTextView.text = description
-        binding.onboardingImageView.setImageResource(imageResource)
     }
 
     override fun onDestroyView() {

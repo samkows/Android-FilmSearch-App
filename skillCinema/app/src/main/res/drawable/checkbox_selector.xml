@@ -4,5 +4,5 @@
         android:state_checked="false"/>
     <item android:drawable="@drawable/checkbox_checked"
         android:state_checked="true"/>
-<!--    <item android:drawable="@drawable/checkbox"/>-->
 </selector>
+    <!--todo DONE-->

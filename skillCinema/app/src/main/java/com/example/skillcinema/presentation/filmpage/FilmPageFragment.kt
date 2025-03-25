@@ -90,12 +90,6 @@ class FilmPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupToolbar()
-        if (viewModel.isAppBarCollapsed) {
-            binding.appBarLayout.post {
-                binding.appBarLayout.setExpanded(false, true)
-            }
-        }
-
         arguments?.let {
             viewModel.loadData((it.getLong("id")))
         }
@@ -501,12 +495,6 @@ class FilmPageFragment : Fragment() {
             }
             similarFilmsAdapter.setData(data)
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        viewModel.isAppBarCollapsed =
-            abs(binding.appBarLayout.top) >= binding.appBarLayout.totalScrollRange
     }
 
     override fun onDestroyView() {

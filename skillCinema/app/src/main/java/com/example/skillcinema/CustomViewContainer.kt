@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.example.skillcinema.databinding.CustomContainerBinding
 
+//todo DONE
 class CustomViewContainer
 @JvmOverloads constructor(
     context: Context,
@@ -32,14 +33,14 @@ class CustomViewContainer
             typedArray.getString(R.styleable.CustomViewContainer_quantity_text)
 
         if (typedArray.getBoolean(
-                R.styleable.CustomViewContainer_enable_quantity_imageView,
-                false
+                R.styleable.CustomViewContainer_enable_quantity_imageView, false
             )
         ) {
             binding.quantityImageView.visibility = VISIBLE
         }
 
         setStartPaddingToRecyclerView()
+
         setTopPaddingToRecyclerView(
             typedArray.getFloat(
                 R.styleable.CustomViewContainer_recycler_view_top_padding, 24f

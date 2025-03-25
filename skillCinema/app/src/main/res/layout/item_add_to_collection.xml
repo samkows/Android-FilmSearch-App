@@ -27,8 +27,7 @@
         android:textAppearance="@style/TitleTextAppearance.400"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/collection_checkbox"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="ufwegfggefwfuwfwfvuwwevfvwvvgeffvggvfevwgevfgewvfgv" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/collection_size_text"
@@ -41,3 +40,4 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="7" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--todo DONE-->

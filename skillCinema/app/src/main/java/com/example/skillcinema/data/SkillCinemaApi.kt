@@ -112,7 +112,7 @@ class SkillCinemaApi {
             private const val FIRST_KEY = "6cad969e-44ae-497c-995e-5a273a3d593c"
             private const val SECOND_KEY = "d7aefb7c-dfc6-475d-962e-0e599f50bfa6"
 
-            private const val API_KEY = SECOND_KEY
+            private const val API_KEY = FIRST_KEY
         }
     }
 }

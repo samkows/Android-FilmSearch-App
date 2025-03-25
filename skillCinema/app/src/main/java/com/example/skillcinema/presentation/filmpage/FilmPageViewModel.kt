@@ -12,13 +12,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-//todo DONE NOT!!!!!!!!!!!! is data loaded ??? is appbar collapsed ???
+//todo DONE
 class FilmPageViewModel(
     val repository: Repository
 ) : ViewModel() {
-
-    private var isDataLoaded = false
-    var isAppBarCollapsed: Boolean = false
 
     private val useCase = FilmPageUseCase(repository)
     private val collectionsUseCase = CollectionsUseCase(repository)
@@ -67,7 +64,6 @@ class FilmPageViewModel(
                         episodesQuantity = episodesQuantity,
                     )
 
-                isDataLoaded = true
                 markFilmAsInteresting(id)
 
             } catch (e: Exception) {
@@ -120,8 +116,6 @@ class FilmPageViewModel(
     }
 
     fun loadData(id: Long) {
-      //  if (!isDataLoaded) {
             loadFilmDataById(id)
-      //  }
     }
 }

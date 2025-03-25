@@ -15,29 +15,30 @@
 
     <TextView
         android:id="@+id/name_textView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:ellipsize="end"
-        android:maxWidth="142dp"
         android:maxLines="1"
         android:textAppearance="@style/TitleTextAppearance.Small.400"
         app:layout_constraintBottom_toBottomOf="@id/description_textView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@id/imageView"
-        tools:text="Name long naaaaaaaaaaammmeeee" />
+        tools:text="Name" />
 
     <TextView
         android:id="@+id/description_textView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxWidth="142dp"
         android:maxLines="1"
         android:textAppearance="@style/SubTitleTextAppearance"
         app:layout_constraintBottom_toBottomOf="@id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/name_textView"
         app:layout_constraintTop_toTopOf="@id/name_textView"
-        tools:text="Description looooooooooooooooooooooooong" />
+        tools:text="Description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--todo DONE-->

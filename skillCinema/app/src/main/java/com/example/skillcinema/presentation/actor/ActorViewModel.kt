@@ -1,6 +1,5 @@
 package com.example.skillcinema.presentation.actor
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.skillcinema.data.Repository
@@ -9,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+//todo DONE
 class ActorViewModel(
     repository: Repository
 ) : ViewModel() {
@@ -28,8 +28,7 @@ class ActorViewModel(
                     ActorLoadState.Success(personData, theBestFilms)
 
             } catch (e: Exception) {
-                _isLoading.value = ActorLoadState.Error("error ${e.message}")
-                e.message?.let { Log.e("actorViewModel", it) }
+                _isLoading.value = ActorLoadState.Error(e)
             }
         }
     }

@@ -4,25 +4,23 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.skillcinema.CustomViewContainer
 import com.example.skillcinema.R
 import com.example.skillcinema.databinding.ItemHomeContainerBinding
 import com.example.skillcinema.databinding.ItemHomeLogoBinding
 import com.example.skillcinema.models.HomeContainerItem
 import com.example.skillcinema.models.ShortFilmData
-import com.example.skillcinema.models.ShortFilmDataListDto
 import com.example.skillcinema.presentation.FilmAdapter
 import com.example.skillcinema.presentation.OffsetItemDecoration
-import com.example.skillcinema.presentation.listpage.ListPageFragment
 
+//todo DONE
 class HomeAdapter(
     private val onItemClick: (ShortFilmData) -> Unit,
     private val onShowAllClick: (String, String) -> Unit
-): RecyclerView.Adapter<ViewHolder>() {
+) : RecyclerView.Adapter<ViewHolder>() {
 
     companion object {
-         const val TYPE_LOGO = 0
-         const val TYPE_CONTAINER = 1
+        const val TYPE_LOGO = 0
+        const val TYPE_CONTAINER = 1
     }
 
     private val items = mutableListOf<HomeContainerItem>()
@@ -33,9 +31,7 @@ class HomeAdapter(
     }
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
         return when (viewType) {
             TYPE_LOGO -> {
                 val binding = ItemHomeLogoBinding.inflate(
@@ -45,6 +41,7 @@ class HomeAdapter(
                 )
                 LogoViewHolder(binding)
             }
+
             else -> {
                 val binding = ItemHomeContainerBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -74,30 +71,23 @@ class HomeAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        when(holder) {
+        when (holder) {
             is LogoViewHolder -> {}
             is HomeViewHolder -> {
                 val item = items[position - 1]
                 holder.binding.container.apply {
                     setTitle(item.title)
-                    recyclerView.apply {
-                        adapter = FilmAdapter(onItemClick) {
-                            onShowAllClick(item.type, item.title)
-                        }.apply { setData(item.films) }
-                      //  (adapter as FilmAdapter).setData(item.films)
-                    }
+                    recyclerView.adapter = FilmAdapter(onItemClick) {
+                        onShowAllClick(item.type, item.title)
+                    }.apply { setData(item.films) }
                     quantityViewClicked = {
                         onShowAllClick(item.type, item.title)
                     }
-
-
                 }
             }
         }
-
-
     }
 }
-class HomeViewHolder(val binding: ItemHomeContainerBinding): ViewHolder(binding.root)
-class LogoViewHolder(binding: ItemHomeLogoBinding) :
-    ViewHolder(binding.root)
+
+class HomeViewHolder(val binding: ItemHomeContainerBinding) : ViewHolder(binding.root)
+class LogoViewHolder(binding: ItemHomeLogoBinding) : ViewHolder(binding.root)

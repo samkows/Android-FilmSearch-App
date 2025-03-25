@@ -5,13 +5,14 @@ import androidx.paging.PagingState
 import com.example.skillcinema.domain.GalleryUseCase
 import com.example.skillcinema.models.GalleryItem
 
+//todo DONE
 class GalleryPagingSource(
     private val useCase: GalleryUseCase,
     private val filmId: Long,
     private val galleryType: String
 ) : PagingSource<Int, GalleryItem>() {
 
-    override fun getRefreshKey(state: PagingState<Int, GalleryItem>): Int? = FIRST_PAGE
+    override fun getRefreshKey(state: PagingState<Int, GalleryItem>): Int = FIRST_PAGE
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GalleryItem> {
         val page = params.key ?: FIRST_PAGE
@@ -30,6 +31,6 @@ class GalleryPagingSource(
     }
 
     private companion object {
-        private val FIRST_PAGE = 1
+        private const val FIRST_PAGE = 1
     }
 }

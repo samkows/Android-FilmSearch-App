@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+//todo DONE
 class HomeViewModel(
     repository: Repository
 ) : ViewModel() {
@@ -17,29 +18,7 @@ class HomeViewModel(
     private val _isLoading = MutableStateFlow<HomeLoadState>(HomeLoadState.Loading)
     val isLoading = _isLoading.asStateFlow()
 
-//    private val _popular = MutableLiveData<ShortFilmDataListDto>()
-//    val popular: LiveData<ShortFilmDataListDto> = _popular
-//
-//    private val _premieres = MutableLiveData<ShortFilmDataListDto>()
-//    val premieres: LiveData<ShortFilmDataListDto> = _premieres
-//
-//    private val _top250 = MutableLiveData<ShortFilmDataListDto>()
-//    val top250: LiveData<ShortFilmDataListDto> = _top250
-//
-//    private val _serials = MutableLiveData<ShortFilmDataListDto>()
-//    val serials: LiveData<ShortFilmDataListDto> = _serials
-//
-//    private val _firstDinamic = MutableLiveData<ShortFilmDataListDto>()
-//    val firstDynamic: LiveData<ShortFilmDataListDto> = _firstDinamic
-//
-//    private val _secondDinamic = MutableLiveData<ShortFilmDataListDto>()
-//    val secondDynamic: LiveData<ShortFilmDataListDto> = _secondDinamic
-
-    init {
-        loadData()
-    }
-
-    private fun loadData() {
+    fun loadData() {
         viewModelScope.launch {
             _isLoading.value = HomeLoadState.Loading
             runCatching {

@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.example.skillcinema.domain.HomeAndListPageUseCase
 import com.example.skillcinema.models.ShortFilmData
 
+//todo DONE
 class ListPagePagingSource(
     private val useCase: HomeAndListPageUseCase,
     private val type: String,
@@ -13,7 +14,7 @@ class ListPagePagingSource(
     private val filmId: Long = 0L
 ) : PagingSource<Int, ShortFilmData>() {
 
-    override fun getRefreshKey(state: PagingState<Int, ShortFilmData>): Int? = FIRST_PAGE
+    override fun getRefreshKey(state: PagingState<Int, ShortFilmData>): Int = FIRST_PAGE
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ShortFilmData> {
         val page = params.key ?: FIRST_PAGE
@@ -31,7 +32,7 @@ class ListPagePagingSource(
         }.fold(
             onSuccess = {
                 LoadResult.Page(
-                    data = it.items,//.value!! as List<ShortFilmData>,
+                    data = it.items,
                     prevKey = null,
                     nextKey = if (it.items.isEmpty() || it.totalPages == 0L) null else page + 1
                 )
@@ -41,6 +42,6 @@ class ListPagePagingSource(
     }
 
     private companion object {
-        private val FIRST_PAGE = 1
+        private const val FIRST_PAGE = 1
     }
 }
