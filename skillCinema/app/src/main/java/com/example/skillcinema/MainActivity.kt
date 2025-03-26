@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -18,7 +19,6 @@ import androidx.navigation.ui.NavigationUI
 import com.example.skillcinema.databinding.ActivityMainBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-//todo DONE
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels {
@@ -98,7 +98,12 @@ class MainActivity : AppCompatActivity() {
     private fun setRootPaddingToWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.updatePadding(
+                left = systemBars.left,
+                top = systemBars.top,
+                right = systemBars.right,
+                bottom = systemBars.bottom
+            )
             insets
         }
     }

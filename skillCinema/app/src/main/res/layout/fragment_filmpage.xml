@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!--    android:fitsSystemWindows="false"-->
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -153,8 +152,6 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/caret_left" />
-            <!--    android:fitsSystemWindows="true"-->
-
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -244,5 +241,3 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <!--todo DONE only 2 comments coordinator and toolbar-->

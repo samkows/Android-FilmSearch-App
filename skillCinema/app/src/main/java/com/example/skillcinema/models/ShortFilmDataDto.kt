@@ -2,7 +2,6 @@ package com.example.skillcinema.models
 
 import com.google.gson.annotations.SerializedName
 
-//@Parcelize
 data class ShortFilmDataDto(
     @SerializedName(value = "kinopoiskId", alternate = ["filmId"])
     override val kinopoiskID: Long,
@@ -21,5 +20,4 @@ data class ShortFilmDataDto(
     override var isFavorite: Boolean = false,
     override var isWantToWatch: Boolean = false,
     override var isItWasInteresting: Boolean = false
-    // override val appCollections: AppCollections = AppCollections(false, false, false, false)
-) : ShortFilmData//, Parcelable
+) : ShortFilmData

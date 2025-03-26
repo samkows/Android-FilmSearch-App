@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -34,7 +33,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-//todo DONE
 class SearchFragment : Fragment() {
 
     private val activityViewModel: MainViewModel by activityViewModels {
@@ -140,10 +138,8 @@ class SearchFragment : Fragment() {
                     state.throwable?.let { e ->
                         Firebase.crashlytics.log("${this.javaClass.simpleName} : ${e.message}")
                         Firebase.crashlytics.recordException(e)
-
-                        //todo delete toast
-                        Toast.makeText(context, "${e.message}", Toast.LENGTH_LONG).show()
-                    }                }
+                    }
+                }
 
                 SearchLoadState.Loading -> {
                     binding.errorTextView.visibility = View.GONE

@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.annotation.StringRes
 import com.example.skillcinema.R
 
-//todo DONE
 enum class GalleryTypes(@StringRes val titleResId: Int, var quantity: Long = 0) {
     STILL(R.string.gallery_still),
     SHOOTING(R.string.gallery_shooting),

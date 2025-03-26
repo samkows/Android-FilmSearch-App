@@ -5,7 +5,6 @@ import com.example.skillcinema.models.GalleryData
 import com.example.skillcinema.models.ShortFilmDataListDto
 import com.example.skillcinema.models.StaffData
 
-//todo DONE
 sealed class FilmPageLoadState {
     data object Loading : FilmPageLoadState()
     data class Error(val throwable: Throwable?) : FilmPageLoadState()

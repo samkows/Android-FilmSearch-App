@@ -23,4 +23,4 @@
         android:fontFamily="@font/graphik_500"
         android:textColor="@color/image_background_color"
         android:textSize="14sp" />
-</LinearLayout><!--todo DONE-->
+</LinearLayout>

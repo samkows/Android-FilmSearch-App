@@ -21,7 +21,6 @@ import com.example.skillcinema.MainViewModel
 import com.example.skillcinema.R
 import com.example.skillcinema.databinding.FragmentCountryGenreChangerBinding
 
-//todo DONE
 class CountryGenreChangerFragment : Fragment() {
     companion object {
         const val TYPE = "type"

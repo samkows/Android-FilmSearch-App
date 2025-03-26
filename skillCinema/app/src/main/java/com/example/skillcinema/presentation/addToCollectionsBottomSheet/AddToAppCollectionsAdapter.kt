@@ -7,7 +7,6 @@ import com.example.skillcinema.R
 import com.example.skillcinema.databinding.ItemAddToCollectionBinding
 import com.example.skillcinema.databinding.ItemAddToCollectionFooterBinding
 
-//todo DONE
 class AddToAppCollectionsAdapter(
     private val checkedChange: (Int, Boolean) -> Unit,
     private val onCreateNewCollectionClick: () -> Unit

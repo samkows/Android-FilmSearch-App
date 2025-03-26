@@ -8,7 +8,6 @@ import com.example.skillcinema.databinding.ItemStaffBinding
 import com.example.skillcinema.models.StaffData
 import kotlin.math.min
 
-//todo DONE
 class StaffAdapter(
     private val onItemClick: (StaffData) -> Unit,
     private val maxItems: Int

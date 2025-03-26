@@ -44,6 +44,3 @@
         tools:listitem="@layout/item_country_genre_changer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--
-    todo DONE
-    -->

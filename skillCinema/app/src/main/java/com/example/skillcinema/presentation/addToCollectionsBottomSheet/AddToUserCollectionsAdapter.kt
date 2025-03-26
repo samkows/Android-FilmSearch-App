@@ -9,7 +9,6 @@ import androidx.viewbinding.ViewBinding
 import com.example.skillcinema.databinding.ItemAddToCollectionBinding
 import com.example.skillcinema.models.collections.UserCollectionWithFilms
 
-//todo DONE
 class AddToUserCollectionsAdapter(
     private val filmId: Long,
     private val checkedChange: (Boolean, Long) -> Unit

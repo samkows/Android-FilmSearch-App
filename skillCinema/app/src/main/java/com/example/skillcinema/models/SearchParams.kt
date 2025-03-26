@@ -1,6 +1,5 @@
 package com.example.skillcinema.models
 
-//todo done
 data class SearchParams(
     val countryId: Long = 1L,
     val genreId: Long = 1L,

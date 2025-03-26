@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,7 +24,6 @@ import com.google.firebase.crashlytics.crashlytics
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-//todo DONE
 class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels {
@@ -78,9 +76,6 @@ class HomeFragment : Fragment() {
                     it.throwable?.let { e ->
                         Firebase.crashlytics.log("${this.javaClass.simpleName} : ${e.message}")
                         Firebase.crashlytics.recordException(e)
-
-                        //todo delete toast
-                        Toast.makeText(context, "${e.message}", Toast.LENGTH_LONG).show()
                     }
                 }
 

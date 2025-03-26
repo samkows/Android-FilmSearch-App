@@ -12,7 +12,6 @@ import java.util.Calendar
 import java.util.Locale
 import kotlin.random.Random
 
-//todo DONE
 class HomeAndListPageUseCase(
     private val repository: Repository
 ) {

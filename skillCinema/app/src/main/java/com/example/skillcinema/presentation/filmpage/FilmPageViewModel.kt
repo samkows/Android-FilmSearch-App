@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-//todo DONE
 class FilmPageViewModel(
     val repository: Repository
 ) : ViewModel() {
@@ -116,6 +115,6 @@ class FilmPageViewModel(
     }
 
     fun loadData(id: Long) {
-            loadFilmDataById(id)
+        loadFilmDataById(id)
     }
 }

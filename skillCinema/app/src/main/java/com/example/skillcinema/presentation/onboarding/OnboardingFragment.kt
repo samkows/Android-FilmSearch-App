@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.skillcinema.databinding.FragmentOnboardingBinding
 
-//todo done
 class OnboardingFragment : Fragment() {
 
     private var _binding: FragmentOnboardingBinding? = null

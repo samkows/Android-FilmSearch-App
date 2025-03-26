@@ -110,7 +110,6 @@
         <item name="tabMode">scrollable</item>
         <item name="tabBackground">@drawable/tab_selector</item>
         <item name="tabIndicator">@null</item>
-
         <item name="android:background">@android:color/transparent</item>
         <item name="tabPaddingStart">24dp</item>
         <item name="tabPaddingEnd">32dp</item>

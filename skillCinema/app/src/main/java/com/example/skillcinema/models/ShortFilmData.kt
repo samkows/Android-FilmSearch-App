@@ -12,7 +12,6 @@ interface ShortFilmData {
     val posterURL: String?
     val posterURLPreview: String?
 
-    //   val appCollections: AppCollections
     var isFavorite: Boolean
     var isWantToWatch: Boolean
     var isWatched: Boolean

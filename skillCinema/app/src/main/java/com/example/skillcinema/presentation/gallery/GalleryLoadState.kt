@@ -5,7 +5,6 @@ import com.example.skillcinema.models.GalleryItem
 import com.example.skillcinema.models.GalleryTypes
 import kotlinx.coroutines.flow.Flow
 
-//todo DONE
 sealed class GalleryLoadState {
     data object Loading : GalleryLoadState()
     data class Error(val throwable: Throwable?) : GalleryLoadState()

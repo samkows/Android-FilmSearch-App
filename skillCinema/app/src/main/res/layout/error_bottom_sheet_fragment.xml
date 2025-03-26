@@ -36,4 +36,3 @@
         app:layout_constraintTop_toTopOf="@id/errorTitle"
         app:srcCompat="@drawable/close_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-<!--todo DONE-->

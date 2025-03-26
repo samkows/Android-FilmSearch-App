@@ -5,7 +5,6 @@ import com.example.skillcinema.models.SearchParams
 import com.example.skillcinema.models.ShortFilmDataDto
 import com.example.skillcinema.models.ShortFilmDataListDto
 
-//todo DONE
 class SearchUseCase(
     private val repository: Repository
 ) {

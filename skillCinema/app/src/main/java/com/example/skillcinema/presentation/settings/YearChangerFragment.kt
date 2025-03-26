@@ -22,7 +22,6 @@ import com.example.skillcinema.presentation.OffsetItemDecoration
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-//todo DONE
 class YearChangerFragment : Fragment() {
 
     private val activityViewModel: MainViewModel by activityViewModels {

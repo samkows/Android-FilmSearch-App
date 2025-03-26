@@ -10,7 +10,6 @@ import com.example.skillcinema.models.GalleryItem
 
 private const val ITEM_COUNT = 20
 
-//todo DONE
 class GalleryAdapter(
     private val onClick: (Int, List<GalleryItem>) -> Unit,
 ) : RecyclerView.Adapter<GalleryViewHolder>() {

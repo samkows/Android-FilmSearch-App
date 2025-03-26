@@ -8,7 +8,6 @@ import com.example.skillcinema.models.SeasonsData
 import com.example.skillcinema.models.ShortFilmDataListDto
 import com.example.skillcinema.models.StaffData
 
-//todo DONE
 class FilmPageUseCase(
     private val repository: Repository
 ) {

@@ -4,7 +4,6 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-//todo DONE
 class OffsetItemDecoration(
     private val spacingInPxLeft: Int = 0,
     private val spacingInPxTop: Int = 0,

@@ -12,7 +12,6 @@ import com.example.skillcinema.models.ShortFilmData
 
 private const val MAX_ITEM_COUNT = 20
 
-//todo DONE but its so similar with filmadapter!!!
 class WasInterestingAdapter(
     private val onClick: (ShortFilmData) -> Unit,
     private val onClearHistoryClick: () -> Unit

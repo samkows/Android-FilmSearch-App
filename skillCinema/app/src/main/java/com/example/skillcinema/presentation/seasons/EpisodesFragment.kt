@@ -9,7 +9,6 @@ import com.example.skillcinema.R
 import com.example.skillcinema.databinding.FragmentEpisodesBinding
 import com.example.skillcinema.models.Season
 
-//todo DONE
 class EpisodesFragment : Fragment() {
 
     companion object {

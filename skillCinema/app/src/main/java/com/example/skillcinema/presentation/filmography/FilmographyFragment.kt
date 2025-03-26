@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
@@ -30,7 +29,6 @@ import com.google.firebase.crashlytics.crashlytics
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-//todo DONE
 class FilmographyFragment : Fragment() {
 
     private val viewModel: FilmographyViewModel by viewModels {
@@ -104,9 +102,6 @@ class FilmographyFragment : Fragment() {
                     it.throwable?.let { e ->
                         Firebase.crashlytics.log("${this.javaClass.simpleName} : ${e.message}")
                         Firebase.crashlytics.recordException(e)
-
-                        //todo delete toast
-                        Toast.makeText(context, "${e.message}", Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -139,6 +134,7 @@ class FilmographyFragment : Fragment() {
                     filmsAdapter.setData(filmography[tab.position].films)
                 }
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })

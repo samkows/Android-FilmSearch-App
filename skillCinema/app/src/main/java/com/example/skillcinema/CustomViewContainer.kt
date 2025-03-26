@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.example.skillcinema.databinding.CustomContainerBinding
 
-//todo DONE
 class CustomViewContainer
 @JvmOverloads constructor(
     context: Context,

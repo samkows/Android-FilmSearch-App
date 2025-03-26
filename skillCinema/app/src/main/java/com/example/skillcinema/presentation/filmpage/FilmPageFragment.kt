@@ -45,12 +45,10 @@ import com.google.firebase.Firebase
 import com.google.firebase.crashlytics.crashlytics
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlin.math.abs
 
 private const val ITEM_COUNT_FOR_ACTORS_ADAPTER = 20
 private const val ITEM_COUNT_FOR_STAFF_ADAPTER = 6
 
-//todo DONE
 class FilmPageFragment : Fragment() {
 
     private val viewModel: FilmPageViewModel by viewModels {

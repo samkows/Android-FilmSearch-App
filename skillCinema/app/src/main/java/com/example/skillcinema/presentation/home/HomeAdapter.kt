@@ -12,7 +12,6 @@ import com.example.skillcinema.models.ShortFilmData
 import com.example.skillcinema.presentation.FilmAdapter
 import com.example.skillcinema.presentation.OffsetItemDecoration
 
-//todo DONE
 class HomeAdapter(
     private val onItemClick: (ShortFilmData) -> Unit,
     private val onShowAllClick: (String, String) -> Unit

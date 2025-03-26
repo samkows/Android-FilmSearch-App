@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.skillcinema.R
 import com.example.skillcinema.databinding.ItemCollectionBinding
-//todo DONE
+
 class AppCollectionsAdapter(
     private val onCollectionClick: (Int) -> Unit
 ) : RecyclerView.Adapter<CollectionViewHolder>() {

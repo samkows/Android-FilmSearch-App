@@ -62,10 +62,6 @@ data class FullFilmDataDto(
     val shortFilm: Boolean?,
     @ColumnInfo("completed")
     val completed: Boolean?,
-
-    //    @Embedded
-//    override val appCollections: AppCollections
-
     @ColumnInfo("is_watched")
     override var isWatched: Boolean = false,
     @ColumnInfo("is_favorite")

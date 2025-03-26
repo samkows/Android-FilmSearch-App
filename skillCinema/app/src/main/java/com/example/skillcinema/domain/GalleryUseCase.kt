@@ -3,7 +3,6 @@ package com.example.skillcinema.domain
 import com.example.skillcinema.data.Repository
 import com.example.skillcinema.models.GalleryData
 
-//todo DONE
 class GalleryUseCase(
     private val repository: Repository
 ) {

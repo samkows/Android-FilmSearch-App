@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.skillcinema.R
 import com.example.skillcinema.databinding.ItemYearChangerBinding
 
-//todo DONE
 class YearChangerAdapter(
     private val onYearClick: (Int) -> Unit
 ) : RecyclerView.Adapter<YearChangerAdapter.YearViewHolder>() {

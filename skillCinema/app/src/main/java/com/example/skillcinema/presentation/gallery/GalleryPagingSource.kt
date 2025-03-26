@@ -5,7 +5,6 @@ import androidx.paging.PagingState
 import com.example.skillcinema.domain.GalleryUseCase
 import com.example.skillcinema.models.GalleryItem
 
-//todo DONE
 class GalleryPagingSource(
     private val useCase: GalleryUseCase,
     private val filmId: Long,

@@ -19,13 +19,15 @@ import com.example.skillcinema.models.CountryWithId
 import com.example.skillcinema.models.GenreWithId
 import com.example.skillcinema.models.SearchParams
 import com.example.skillcinema.models.SettingsUiState
+import com.example.skillcinema.presentation.settings.SettingsLoadState
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-//todo DONE but maybe this is searchSettingsViewModel???
 class MainViewModel(
     private val settingsDataStore: DataStore<Preferences>,
     private val repository: Repository
@@ -51,6 +53,9 @@ class MainViewModel(
         const val DEFAULT_YEAR_TO = 2030
         const val DEFAULT_IS_WATCHED = false
     }
+
+    private val _isLoading = MutableStateFlow<SettingsLoadState>(SettingsLoadState.Loading)
+    val isLoading = _isLoading.asStateFlow()
 
     private var countries = MutableLiveData<List<CountryWithId>>()
     private var genres = MutableLiveData<List<GenreWithId>>()
@@ -99,9 +104,17 @@ class MainViewModel(
     fun prepareCountriesAndGenres() {
         if (countries.value == null || genres.value == null) {
             viewModelScope.launch {
-                val genresAndCountriesData = repository.getGenresAndCountries()
-                countries.value = genresAndCountriesData.countries
-                genres.value = genresAndCountriesData.genres
+                _isLoading.value = SettingsLoadState.Loading
+                runCatching {
+                    repository.getGenresAndCountries()
+                }.onSuccess {
+                    countries.value = it.countries
+                    genres.value = it.genres
+
+                    _isLoading.value = SettingsLoadState.Success
+                }.onFailure {
+                    _isLoading.value = SettingsLoadState.Error(it)
+                }
             }
         }
     }

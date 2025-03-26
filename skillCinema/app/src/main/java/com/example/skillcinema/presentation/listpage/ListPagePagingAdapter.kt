@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.example.skillcinema.databinding.ItemFilmBinding
 import com.example.skillcinema.models.ShortFilmData
 
-//todo DONE
 class ListPagePagingAdapter(
     private val onClick: (ShortFilmData) -> Unit
 ) : PagingDataAdapter<ShortFilmData, ListPagePagingViewHolder>(ListPageDiffUtilCallback()) {

@@ -17,7 +17,6 @@ import com.example.skillcinema.databinding.FragmentListpageBinding
 import com.example.skillcinema.models.StaffData
 import com.example.skillcinema.presentation.OffsetItemDecoration
 
-//todo DONE
 class StaffListPageFragment : Fragment() {
     companion object {
         const val STAFF_LIST = "staff list"

@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.annotation.StringRes
 import com.example.skillcinema.R
 
-//todo DONE ?companion???????
 enum class ProfessionKeys(
     val films: ArrayList<FullFilmDataDto>,
     @StringRes val nameResId: Int
@@ -26,12 +25,6 @@ enum class ProfessionKeys(
     PRODUCER(ArrayList(), R.string.profession_producer),
     VOICE_DIRECTOR(ArrayList(), R.string.profession_voice_director),
     UNKNOWN(ArrayList(), R.string.profession_unknown);
-
-    companion object {
-        fun getByOrdinal(ordinal: Int): ProfessionKeys {
-            return entries.toTypedArray().getOrElse(ordinal) { UNKNOWN }
-        }
-    }
 
     fun getLocalizedName(context: Context): String {
         return context.getString(nameResId)

@@ -22,7 +22,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-//todo DONE
 class GalleryViewPagerFragment : Fragment() {
     companion object {
         const val TYPE = "type"

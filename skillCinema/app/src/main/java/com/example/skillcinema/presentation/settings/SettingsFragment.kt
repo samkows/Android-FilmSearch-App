@@ -15,17 +15,21 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.skillcinema.App
+import com.example.skillcinema.MainActivity
 import com.example.skillcinema.MainViewModel
 import com.example.skillcinema.R
 import com.example.skillcinema.databinding.FragmentSettingsBinding
 import com.example.skillcinema.models.CountryWithId
 import com.example.skillcinema.models.GenreWithId
 import com.example.skillcinema.models.SearchParams
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-//todo DONE
 class SettingsFragment : Fragment() {
 
     private val activityViewModel: MainViewModel by activityViewModels {
@@ -60,6 +64,7 @@ class SettingsFragment : Fragment() {
         setupClickListeners()
         setupRadioGroups()
         setupRangeSlider()
+        handleLoadingState()
 
         activityViewModel.prepareCountriesAndGenres()
         activityViewModel.settingsUiState.observe(viewLifecycleOwner) { uiState ->
@@ -99,6 +104,32 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    private fun handleLoadingState() {
+        activityViewModel.isLoading.onEach {
+            when (it) {
+                is SettingsLoadState.Loading -> {
+                    (activity as MainActivity).showProgressIndicator()
+                    binding.root.visibility = View.INVISIBLE
+                }
+
+                is SettingsLoadState.Error -> {
+                    (activity as MainActivity).hideProgressIndicator()
+                    (activity as MainActivity).showErrorBottomSheetFragment()
+
+                    it.throwable?.let { e ->
+                        Firebase.crashlytics.log("${this.javaClass.simpleName} : ${e.message}")
+                        Firebase.crashlytics.recordException(e)
+                    }
+                }
+
+                is SettingsLoadState.Success -> {
+                    (activity as MainActivity).hideProgressIndicator()
+                    binding.root.visibility = View.VISIBLE
+                }
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
     private fun navigateToCountryGenreChanger(type: String) {
         findNavController().navigate(
             R.id.action_settingsFragment_to_countryGenreChangerFragment,
@@ -110,7 +141,6 @@ class SettingsFragment : Fragment() {
         binding.apply {
             filterRadioGroup.isSelectionRequired = true
             sortRadioGroup.isSelectionRequired = true
-
 
             filterRadioGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
                 if (isChecked) {

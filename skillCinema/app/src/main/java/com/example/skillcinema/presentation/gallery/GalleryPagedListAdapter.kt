@@ -12,7 +12,6 @@ import com.example.skillcinema.databinding.ItemGalleryBigViewBinding
 import com.example.skillcinema.databinding.ItemGallerySmallViewBinding
 import com.example.skillcinema.models.GalleryItem
 
-//todo DONE
 class GalleryPagedListAdapter(
     private val onClick: (Int) -> Unit
 ) : PagingDataAdapter<GalleryItem, GalleryPagedViewHolder>(DiffUtilCallback()) {

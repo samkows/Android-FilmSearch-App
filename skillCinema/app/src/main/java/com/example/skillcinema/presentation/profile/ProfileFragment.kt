@@ -28,7 +28,6 @@ import com.google.firebase.crashlytics.crashlytics
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-//todo DONE
 class ProfileFragment : Fragment() {
 
     private val viewModel: ProfileViewModel by viewModels {

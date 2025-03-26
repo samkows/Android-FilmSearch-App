@@ -11,22 +11,14 @@ import com.example.skillcinema.models.StaffData
 import com.example.skillcinema.models.collections.UserCollection
 import com.example.skillcinema.models.collections.UserCollectionWithFilms
 import com.example.skillcinema.models.collections.UserCollectionsFilmsCrossRef
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 
 class Repository(
     private val dao: AppDatabaseDao,
     private val networkingApi: SkillCinemaApi.NetworkingApi
 ) {
-    // NETWORKING
-    // private val networkingApi = SkillCinemaApi.RetrofitInstance.networkingApi
-    //todo hz
-    val countriesAndGenres: Flow<GenresAndCountriesData> = flow {
-        val data = getGenresAndCountries()
-        emit(data)
-    }
 
+    //NETWORKING
     suspend fun getPremieres(year: Int, month: String): ShortFilmDataListDto {
         return networkingApi.getPremieres(year, month)
     }
@@ -118,17 +110,9 @@ class Repository(
         return dao.getFullFilmData(filmId)
     }
 
-     fun getFullFilmLiveData(id: Long): LiveData<FullFilmDataDto> {
+    fun getFullFilmLiveData(id: Long): LiveData<FullFilmDataDto> {
         return dao.getFullFilmLiveData(id)
     }
-
-//    fun getLiveDataList(ids: List<Long>): LiveData<List<FullFilmDataDto?>> {
-//        return dao.getLiveDataList(ids)
-//    }
-
-//    fun getFilmWithUserCollections(id: Long): LiveData<FilmWithUserCollections>? {
-//        return dao.getFilmWithUserCollections(id)
-//    }
 
     // IS WATCHED APP COLLECTION
     fun getAllIsWatchedLiveData(): LiveData<List<FullFilmDataDto>> {
@@ -138,10 +122,6 @@ class Repository(
     suspend fun getAllIsWatched(): List<FullFilmDataDto> {
         return dao.getAllIsWatched()
     }
-
-//    suspend fun getAllIsNotWatched(): List<FullFilmDataDto> {
-//        return dao.getAllIsNotWatched()
-//    }
 
     fun getIsWatchedFilmLiveData(id: Long): LiveData<Boolean> {
         return dao.getIsWatchedFilmLiveData(id)
@@ -206,10 +186,6 @@ class Repository(
     suspend fun getUserCollectionWithFilms(id: Long): UserCollectionWithFilms? {
         return dao.getUserCollectionWithFilms(id)
     }
-
-//    suspend fun getUserCollections(): List<UserCollection> {
-//        return dao.getUserCollections()
-//    }
 
     suspend fun insertUserCollection(userCollection: UserCollection): Long {
         return dao.insertUserCollection(userCollection)

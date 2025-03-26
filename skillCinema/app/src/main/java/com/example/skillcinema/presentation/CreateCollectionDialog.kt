@@ -11,7 +11,6 @@ import androidx.core.graphics.drawable.toDrawable
 import com.example.skillcinema.R
 import com.google.android.material.textfield.TextInputEditText
 
-//todo DONE
 class CreateCollectionDialog(
     private val context: Context,
     private val onDoneClicked: (String) -> Unit

@@ -6,6 +6,3 @@
     android:gravity="center"
     android:textAppearance="@style/TitleTextAppearance.500"
     tools:text="2007" />
-    <!--
-    todo DONE
-    -->

@@ -5,7 +5,6 @@ import com.example.skillcinema.models.Country
 import com.example.skillcinema.models.Genre
 import com.google.gson.Gson
 
-//todo DONE
 class Converters {
     @TypeConverter
     fun listToJsonString(value: List<Country>?): String = Gson().toJson(value)

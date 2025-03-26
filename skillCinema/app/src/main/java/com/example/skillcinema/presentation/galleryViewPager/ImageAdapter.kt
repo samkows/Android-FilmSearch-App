@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.example.skillcinema.databinding.ItemGalleryViewPagerBinding
 import com.example.skillcinema.models.GalleryItem
 
-//todo done
 
 // TouchImageView adapter from https://github.com/MikeOrtiz/TouchImageView/tree/master
 class ImageAdapter(

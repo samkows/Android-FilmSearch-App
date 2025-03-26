@@ -5,7 +5,6 @@ import androidx.paging.PagingState
 import com.example.skillcinema.domain.CollectionsUseCase
 import com.example.skillcinema.models.ShortFilmData
 
-//TODO DONE
 class CollectionsPagingSource(
     private val useCase: CollectionsUseCase,
     private val collectionType: String,

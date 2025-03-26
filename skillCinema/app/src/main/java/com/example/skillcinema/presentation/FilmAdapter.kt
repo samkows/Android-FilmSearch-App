@@ -13,7 +13,6 @@ import com.example.skillcinema.models.ShortFilmDataListDto
 
 private const val MAX_ITEM_COUNT = 20
 
-//todo DONE
 class FilmAdapter(
     private val onClick: (ShortFilmData) -> Unit,
     private val onShowAllClick: () -> Unit

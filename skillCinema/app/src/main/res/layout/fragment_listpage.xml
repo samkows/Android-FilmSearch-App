@@ -22,4 +22,3 @@
         android:paddingTop="32dp"
         tools:listitem="@layout/item_film" />
 </LinearLayout>
-    <!--todo DONE-->

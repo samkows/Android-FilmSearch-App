@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import com.example.skillcinema.models.FullFilmDataDto
 import com.example.skillcinema.models.collections.UserCollectionWithFilms
 
-//todo DONE
 sealed class ProfileLoadState {
     data object Loading : ProfileLoadState()
     data class Error(val throwable: Throwable?) : ProfileLoadState()

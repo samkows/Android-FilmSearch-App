@@ -10,7 +10,6 @@ import com.example.skillcinema.models.Episode
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-//todo DONE
 class EpisodesAdapter : RecyclerView.Adapter<EpisodesViewHolder>() {
 
     private val dateFormatFrom = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

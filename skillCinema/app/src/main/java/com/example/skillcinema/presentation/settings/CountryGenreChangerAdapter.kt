@@ -11,7 +11,6 @@ import com.example.skillcinema.databinding.ItemCountryGenreChangerBinding
 import com.example.skillcinema.models.CountryWithId
 import com.example.skillcinema.models.GenreWithId
 
-//todo DONE
 class CountryGenreChangerAdapter(
     private val onClick: (Long) -> Unit
 ) : RecyclerView.Adapter<ChangerViewHolder>() {

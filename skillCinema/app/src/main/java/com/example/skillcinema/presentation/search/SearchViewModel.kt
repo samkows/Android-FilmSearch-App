@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
-//todo DONE
 class SearchViewModel(
     private val searchUseCase: SearchUseCase
 ) : ViewModel() {

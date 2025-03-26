@@ -8,4 +8,3 @@
     android:paddingBottom="36dp"
     android:scrollbars="none"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-<!--todo done-->

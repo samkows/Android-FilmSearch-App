@@ -5,7 +5,6 @@ import androidx.paging.PagingState
 import com.example.skillcinema.domain.HomeAndListPageUseCase
 import com.example.skillcinema.models.ShortFilmData
 
-//todo DONE
 class ListPagePagingSource(
     private val useCase: HomeAndListPageUseCase,
     private val type: String,

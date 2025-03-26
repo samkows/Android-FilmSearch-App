@@ -41,4 +41,3 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_filmography" />
 </LinearLayout>
-<!--todo DONE-->

@@ -50,7 +50,7 @@ class SearchDiffUtilCallback : DiffUtil.ItemCallback<ShortFilmData>() {
         oldItem.kinopoiskID == newItem.kinopoiskID
 
     override fun areContentsTheSame(oldItem: ShortFilmData, newItem: ShortFilmData): Boolean =
-        oldItem == newItem //todo other is DONE
+        oldItem == newItem
 }
 
 class SearchPagingViewHolder(val binding: ItemFilmographyBinding) :

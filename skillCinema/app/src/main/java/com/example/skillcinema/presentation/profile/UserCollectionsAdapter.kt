@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.skillcinema.databinding.ItemCollectionBinding
 import com.example.skillcinema.models.collections.UserCollection
 import com.example.skillcinema.models.collections.UserCollectionWithFilms
-//todo DONE only to listadapter for animations?
+
 class UserCollectionsAdapter(
     private val onCollectionClick: (UserCollectionWithFilms) -> Unit,
     private val onDeleteClick: (UserCollection) -> Unit

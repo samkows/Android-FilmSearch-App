@@ -7,7 +7,6 @@ import com.example.skillcinema.models.collections.UserCollection
 import com.example.skillcinema.models.collections.UserCollectionWithFilms
 import com.example.skillcinema.models.collections.UserCollectionsFilmsCrossRef
 
-//todo DONE
 class CollectionsUseCase(
     private val repository: Repository
 ) {
@@ -19,10 +18,6 @@ class CollectionsUseCase(
 
     suspend fun getAllIsWatched(): List<FullFilmDataDto> {
         return repository.getAllIsWatched()
-    }
-
-    fun getIsWatchedFilmLiveData(id: Long): LiveData<Boolean> {
-        return repository.getIsWatchedFilmLiveData(id)
     }
 
     suspend fun updateIsWatchedFilm(id: Long, isWatched: Boolean) {
@@ -38,10 +33,6 @@ class CollectionsUseCase(
         return repository.getAllIsFavorite()
     }
 
-    fun getIsFavoriteFilmLiveData(id: Long): LiveData<Boolean> {
-        return repository.getIsFavoriteFilmLiveData(id)
-    }
-
     suspend fun updateIsFavoriteFilm(id: Long, isFavorite: Boolean) {
         repository.updateIsFavoriteFilm(id, isFavorite)
     }
@@ -53,10 +44,6 @@ class CollectionsUseCase(
 
     suspend fun getAllIsWantToWatch(): List<FullFilmDataDto> {
         return repository.getAllIsWantToWatch()
-    }
-
-    fun getIsWantToWatchFilmLiveData(id: Long): LiveData<Boolean> {
-        return repository.getIsWantToWatchFilmLiveData(id)
     }
 
     suspend fun updateIsWantToWatchFilm(id: Long, isWantToWatch: Boolean) {

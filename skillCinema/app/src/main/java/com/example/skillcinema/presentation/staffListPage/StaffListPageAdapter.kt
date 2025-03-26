@@ -7,7 +7,6 @@ import com.bumptech.glide.Glide
 import com.example.skillcinema.databinding.ItemStaffListpageBinding
 import com.example.skillcinema.models.StaffData
 
-//todo DONE
 class StaffListPageAdapter(
     private val onClick: (StaffData) -> Unit
 ) : RecyclerView.Adapter<StaffListPageViewHolder>() {

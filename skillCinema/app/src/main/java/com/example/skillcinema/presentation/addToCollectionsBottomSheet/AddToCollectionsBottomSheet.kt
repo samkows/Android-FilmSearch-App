@@ -14,7 +14,6 @@ import com.example.skillcinema.presentation.CreateCollectionDialog
 import com.example.skillcinema.presentation.filmpage.FilmPageViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-//todo DONE
 class AddToCollectionsBottomSheet(
     private val context: Context,
     private val viewModel: FilmPageViewModel

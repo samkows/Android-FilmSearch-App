@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -16,9 +17,7 @@ import com.example.skillcinema.presentation.onboarding.OnboardingFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import androidx.core.content.edit
 
-//todo DONE
 class StartActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +65,7 @@ class StartActivity : AppCompatActivity() {
 
     private fun onBoardingFinished() {
         val sharedPref = getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
-        sharedPref?.edit() {
+        sharedPref?.edit {
             this.putBoolean("Finished", true)
         }
         startActivity(Intent(this, MainActivity::class.java))

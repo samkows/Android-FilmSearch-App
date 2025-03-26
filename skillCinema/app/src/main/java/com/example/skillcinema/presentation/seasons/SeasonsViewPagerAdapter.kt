@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.skillcinema.models.SeasonsData
 
-//todo DONE
 class SeasonsViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     private lateinit var data: SeasonsData
 

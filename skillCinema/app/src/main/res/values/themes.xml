@@ -1,24 +1,16 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
+
     <style name="Theme.SkillCinema" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <!--        <item name="colorPrimary">@color/purple_500</item>-->
-        <!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue</item>
         <item name="colorSecondaryVariant">@color/blue</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
+
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <!-- Customize your theme here. -->
-
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:colorBackground">@color/white</item>
-
-        <item name="android:windowTranslucentStatus">true</item>
-
         <item name="android:navigationIcon">@drawable/caret_left</item>
     </style>
 
@@ -27,12 +19,4 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.SkillCinema.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.SkillCinema.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-<!--    <style name="ThemeOverlay.SkillCinema.FullscreenContainer" parent="">-->
-<!--        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>-->
-<!--        <item name="fullscreenTextColor">@color/light_blue_A200</item>-->
-<!--    </style>-->
 </resources>

@@ -9,7 +9,6 @@ import com.example.skillcinema.databinding.ItemFilmographyBinding
 import com.example.skillcinema.models.FullFilmDataDto
 import com.example.skillcinema.models.ShortFilmData
 
-//todo DONE
 class FilmographyFilmAdapter(
     private val onClick: (ShortFilmData) -> Unit
 ) : RecyclerView.Adapter<FilmographyFilmViewHolder>() {

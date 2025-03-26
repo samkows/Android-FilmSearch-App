@@ -19,10 +19,7 @@ interface AppDatabaseDao {
     suspend fun getFullFilmData(id: Long): FullFilmDataDto?
 
     @Query("SELECT * FROM full_film_data_table WHERE kinopoiskId = :id")
-     fun getFullFilmLiveData(id: Long): LiveData<FullFilmDataDto>
-
-//    @Query("SELECT * FROM full_film_data_table WHERE kinopoiskId IN (:ids)")
-//    fun getLiveDataList(ids: List<Long>): LiveData<List<FullFilmDataDto?>>
+    fun getFullFilmLiveData(id: Long): LiveData<FullFilmDataDto>
 
     @Insert
     suspend fun insertFullFilmData(filmDataDto: FullFilmDataDto)
@@ -40,9 +37,6 @@ interface AppDatabaseDao {
 
     @Query("SELECT * FROM full_film_data_table WHERE is_watched LIKE 1")
     suspend fun getAllIsWatched(): List<FullFilmDataDto>
-
-//    @Query("SELECT * FROM full_film_data_table WHERE is_watched LIKE 0")
-//    suspend fun getAllIsNotWatched(): List<FullFilmDataDto>
 
     @Query("SELECT is_watched FROM full_film_data_table WHERE kinopoiskId = :id")
     fun getIsWatchedFilmLiveData(id: Long): LiveData<Boolean>
@@ -102,16 +96,9 @@ interface AppDatabaseDao {
     @Query("SELECT * FROM user_collections_table WHERE collection_id = :id")
     suspend fun getUserCollectionWithFilms(id: Long): UserCollectionWithFilms?
 
-//    @Query("SELECT * FROM user_collections_table")
-//    suspend fun getUserCollections(): List<UserCollection>
-
     @Insert
     suspend fun insertInUserCollection(userCollectionsFilmsCrossRef: UserCollectionsFilmsCrossRef)
 
     @Delete
     suspend fun deleteFromUserCollection(userCollectionsFilmsCrossRef: UserCollectionsFilmsCrossRef)
-
-//    @Transaction
-//    @Query("SELECT * FROM full_film_data_table WHERE kinopoiskId = :id")
-//    fun getFilmWithUserCollections(id: Long): LiveData<FilmWithUserCollections>?
 }

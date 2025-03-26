@@ -11,7 +11,6 @@ import com.example.skillcinema.data.SkillCinemaApi
 import com.google.firebase.FirebaseApp
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 
-//todo DONE
 class App : Application() {
     private lateinit var appDatabase: AppDatabase
     private lateinit var networkingApi: SkillCinemaApi.NetworkingApi
@@ -21,7 +20,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this)
-        FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = true;
+        FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = true
 
         appDatabase = Room.databaseBuilder(
             applicationContext,

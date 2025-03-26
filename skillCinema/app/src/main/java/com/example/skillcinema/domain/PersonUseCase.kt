@@ -7,7 +7,6 @@ import com.example.skillcinema.models.ProfessionKeys
 import com.example.skillcinema.models.ShortFilmDataDto
 import com.example.skillcinema.models.ShortFilmDataListDto
 
-//todo DONE
 class PersonUseCase(
     private val repository: Repository
 ) {
@@ -60,6 +59,7 @@ class PersonUseCase(
                         "ACTOR" -> {
                             if (sex == "MALE") ProfessionKeys.ACTOR else ProfessionKeys.ACTRESS
                         }
+
                         "VOICE_DIRECTOR" -> ProfessionKeys.VOICE_DIRECTOR
                         else -> ProfessionKeys.UNKNOWN
 

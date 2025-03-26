@@ -7,8 +7,6 @@ plugins {
     id("com.google.firebase.crashlytics")
 }
 
-
-
 android {
     namespace = "com.example.skillcinema"
     compileSdk = 35
@@ -49,21 +47,11 @@ android {
     }
 }
 
-//configurations.all {
-//    resolutionStrategy.eachDependency {
-//        if (requested.group == "org.jetbrains.kotlin") {
-//            useVersion("1.9.0")
-//        }
-//    }
-//}
 
 dependencies {
 
     implementation("com.github.MikeOrtiz:TouchImageView:3.6")
 
-    // Java language implementation
-  //  implementation("androidx.activity:activity:1.10.1")
-    // Kotlin
     implementation("androidx.activity:activity-ktx:1.10.1")
 
     implementation("com.google.code.gson:gson:2.12.1")
@@ -71,14 +59,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
-    
     implementation("androidx.room:room-runtime:2.6.1")
-   // annotationProcessor("androidx.room:room-compiler:2.6.1")
-    // To use Kotlin annotation processing tool (kapt)
-    //kapt("androidx.room:room-compiler:$room_version")
-    // To use Kotlin Symbol Processing (KSP)
     ksp("androidx.room:room-compiler:2.6.1")
-    // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.6.1")
 
     implementation("androidx.core:core-ktx:1.15.0")
@@ -92,7 +74,6 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation("androidx.viewpager2:viewpager2:1.1.0")
     implementation("androidx.paging:paging-runtime-ktx:3.3.6")
-
     implementation("androidx.datastore:datastore-preferences:1.1.3")
 
     implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
@@ -102,7 +83,6 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
-   // implementation("com.google.android.gms:play-services-measurement-impl:21.0.0")
 
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     testImplementation("junit:junit:4.13.2")

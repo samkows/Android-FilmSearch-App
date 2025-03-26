@@ -5,12 +5,12 @@ data class GenresAndCountriesData(
     val countries: List<CountryWithId>
 )
 
-data class CountryWithId (
+data class CountryWithId(
     val id: Long,
     val country: String
 )
 
-data class GenreWithId (
+data class GenreWithId(
     val id: Long,
     val genre: String
 )
