@@ -30,7 +30,7 @@
 ## Установка и настройка
 ### 1. Клонирование репозитория
 ```bash
-git clone https://github.com/your-username/SkillCinema.git
+git clone https://github.com/samkows/Android-FilmSearch-App.git
 ```
 
 ### 2. Настройка Firebase
@@ -67,7 +67,7 @@ A mobile app for searching movies and TV shows using Kinopoisk API unofficial.
 ## Installation & Setup
 ### 1. Clone repository
 ```bash
-git clone https://github.com/your-username/SkillCinema.git
+git clone https://github.com/samkows/Android-FilmSearch-App.git
 ```
 
 ### 2. Firebase Setup
