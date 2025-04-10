@@ -20,13 +20,6 @@
 - **Локальная БД**: Room  
 - **UI**: XML  
 
-## Скриншоты  
-<p float="left">
-  <img src="skillCinema/screenshots/main.png" width="30%" />
-  <img src="skillCinema/screenshots/aboutFilm.png" width="30%" />
-  <img src="skillCinema/screenshots/filmography.png" width="30%" />
-</p>
-
 ## Установка и настройка
 ### 1. Клонирование репозитория
 ```bash
@@ -38,6 +31,18 @@ git clone https://github.com/samkows/Android-FilmSearch-App.git
 2. Добавьте Android-приложение (пакет должен совпадать с "com.example.skillcinema")
 3. Скачайте файл конфигурации google-services.json
 4. Поместите его в папку app/ проекта
+
+### 3. Запуск проекта
+1. Откройте проект в Android Studio
+2. Дождитесь завершения индексации
+3. Нажмите "Run" (Shift+F10)
+
+## Скриншоты  
+<p float="left">
+  <img src="skillCinema/screenshots/main.png" width="30%" />
+  <img src="skillCinema/screenshots/aboutFilm.png" width="30%" />
+  <img src="skillCinema/screenshots/filmography.png" width="30%" />
+</p>
 </details><details> <summary>🇬🇧 English</summary>
   
 ## About
@@ -57,13 +62,6 @@ A mobile app for searching movies and TV shows using Kinopoisk API unofficial.
 - **Local DB**: Room
 - **UI**: XML
 
-## Screenshots  
-<p float="left">
-  <img src="skillCinema/screenshots/main.png" width="30%" />
-  <img src="skillCinema/screenshots/aboutFilm.png" width="30%" />
-  <img src="skillCinema/screenshots/filmography.png" width="30%" />
-</p>
-
 ## Installation & Setup
 ### 1. Clone repository
 ```bash
@@ -75,4 +73,16 @@ git clone https://github.com/samkows/Android-FilmSearch-App.git
 2. Add Android app (package must match "com.example.skillcinema")
 3. Download google-services.json config file
 4. Place it in app/ folder
+
+### 3. Run Project
+1. Open project in Android Studio
+2. Wait for indexing to complete
+3. Click "Run" (Shift+F10)
+
+## Screenshots  
+<p float="left">
+  <img src="skillCinema/screenshots/main.png" width="30%" />
+  <img src="skillCinema/screenshots/aboutFilm.png" width="30%" />
+  <img src="skillCinema/screenshots/filmography.png" width="30%" />
+</p>
 </details>
